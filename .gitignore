@@ -1,6 +1,6 @@
 node_modules
-yarn.error.log
-yarb.lock
+yarn-error.log
+yarn.lock
 my-app/node_modules
 my-app/.eslintcache
 my-app/.yarn.lock
