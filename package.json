@@ -1,0 +1,26 @@
+{
+  "name": "lost_and_found",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "concurrently \"npm start\" \"cd my-app && npm start\"",
+    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+  },
+  "dependencies": {
+    "@types/jest": "^26.0.20",
+    "@types/node": "^14.14.22",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "axios": "^0.21.1",
+    "body-parser": "^1.19.0",
+    "concurrently": "^5.3.0",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "multer": "^1.4.2",
+    "passport": "^0.4.1",
+    "passport-google-oauth20": "^2.0.0",
+    "path": "^0.12.7",
+    "request": "^2.88.2",
+    "typescript": "^4.1.3"
+  }
+}
