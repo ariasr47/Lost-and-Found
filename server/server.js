@@ -9,6 +9,16 @@ const database = require("./api/database.js");
 const storage = require("./api/storage.js");
 const oauth = require("./api/oauth.js");
 
+// enable CORS
+app.use(function (req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept"
+    );
+    next();
+});
+
 app.use("/api/database", database);
 app.use("/api/storage", storage);
 app.use("/", oauth);
