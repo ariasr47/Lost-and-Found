@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node server/server.js",
     "dev": "concurrently \"npm start\" \"cd my-app && npm start\"",
-    "heroku-postbuild": "cd client && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
+    "heroku-postbuild": "cd my-app && npm install && npm install --only=dev --no-shrinkwrap && npm run build"
   },
   "dependencies": {
     "@types/jest": "^26.0.20",
