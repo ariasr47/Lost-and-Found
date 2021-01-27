@@ -1,5 +1,5 @@
 import Grid from "@material-ui/core/Grid";
-import { RouteComponentProps } from "@reach/router";
+import { Link, RouteComponentProps } from "@reach/router";
 import ShieldsEntrance from "../images/Shields-entrance_Credit-Hector-Villicana_1924x1282-960x600-c-center.jpg";
 import DavisLogo from "../images/UC_Davis_Logo.png";
 import { makeStyles, Theme } from "@material-ui/core/styles";
@@ -55,6 +55,8 @@ const SplashPage = (props: RouteComponentProps) => {
                             startIcon={<FcGoogle size="36px" />}
                             variant={"contained"}
                             className={classes.button}
+                            component={Link}
+                            to="/Home"
                         >
                             Login with Google
                         </Button>

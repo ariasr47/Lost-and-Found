@@ -7,7 +7,7 @@ import { Typography } from "@material-ui/core";
 const useStyles = makeStyles((theme: Theme) => ({
     root: (props: { type: string }) => ({
         minHeight: "100vh",
-        backgroundColor: props.type == "finder" ? "#feebb1" : "#b3c1d1",
+        backgroundColor: props.type === "finder" ? "#feebb1" : "#b3c1d1",
     }),
     img2: {
         marginTop: "4px",
@@ -19,9 +19,10 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundSize: "contain",
     },
     header: {
-        fontFamily: "Montserrat",
-        fontWeight: "bold",
+        fontFamily: '"Montserrat"',
+        fontWeight: "bolder",
         color: "#142a50",
+        marginBottom: "16px",
     },
 }));
 

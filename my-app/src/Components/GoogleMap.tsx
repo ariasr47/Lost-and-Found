@@ -1,27 +1,48 @@
-import { Loader } from "@googlemaps/js-api-loader";
+import React from "react";
+import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
 
-const center: google.maps.LatLngLiteral = { lat: 30, lng: -110 };
-
-const loader = new Loader({
-    apiKey: "",
-    version: "weekly",
-    libraries: ["places"],
-});
-
-const mapOptions = {
-    center,
-    zoom: 4,
+const containerStyle = {
+    width: "100%",
+    height: "400px",
 };
 
-loader.load().then(() => {
-    new google.maps.Map(
-        document.getElementById("map") as HTMLElement,
-        mapOptions
-    );
-});
+const center = {
+    lat: -3.745,
+    lng: -38.523,
+};
 
-function Map() {
-    return <div id="map" style={{ height: "400px" }}></div>;
+function MyComponent() {
+    const { isLoaded } = useJsApiLoader({
+        id: "google-map-script",
+        googleMapsApiKey: "AIzaSyBgbg4E-mLCqgoH4RkX6tZzsxULYWL_zj0",
+    });
+
+    const [map, setMap] = React.useState(null);
+
+    const onLoad = React.useCallback(function callback(map) {
+        const bounds = new window.google.maps.LatLngBounds();
+        map.fitBounds(bounds);
+        setMap(map);
+    }, []);
+
+    const onUnmount = React.useCallback(function callback(map) {
+        setMap(null);
+    }, []);
+
+    return isLoaded ? (
+        <GoogleMap
+            mapContainerStyle={containerStyle}
+            center={center}
+            zoom={10}
+            onLoad={onLoad}
+            onUnmount={onUnmount}
+        >
+            {/* Child components, such as markers, info windows, etc. */}
+            <></>
+        </GoogleMap>
+    ) : (
+        <></>
+    );
 }
 
-export default Map;
+export default React.memo(MyComponent);

@@ -5,45 +5,50 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import GoogleMap from "./GoogleMap";
+import { Link } from "@reach/router";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
         root: {
+            backgroundColor: "#e5e5e5",
             "& .MuiTextField-root": {
                 margin: theme.spacing(1),
-                width: "75ch",
+                width: "50ch",
             },
         },
         button: {
             margin: theme.spacing(1),
-        },
-        div: {
-            backgroundColor: "#e5e5e5",
         },
     })
 );
 
 export default function MultilineTextFields(props: any) {
     const classes = useStyles();
-    const [value, setValue] = React.useState("");
+    const [inputs, setInputs] = React.useState([
+        { id: "date-time", value: "" },
+        { id: "location", value: "" },
+    ]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
+    const handleChange = ({ target: { id, value } }: any) => {
+        const newInputs = [...inputs];
+        const index = inputs.findIndex((input) => input.id === id);
+        newInputs[index] = { ...inputs[index], value };
+        setInputs(newInputs);
     };
 
+    const handleClick = () => {};
+
     return (
-        <div className={classes.div}>
-            <form className={classes.root} noValidate autoComplete="off">
-                <Grid container item direction="column">
-                    <Grid container item direction="row">
-                        <Grid item xs={12}>
-                            <Typography variant="body1">Date & Time</Typography>
-                        </Grid>
+        <div className={classes.root}>
+            <Grid container item direction="column">
+                <Grid container item direction="row">
+                    <Grid item xs={12}>
+                        <Typography variant="body1">Date & Time</Typography>
                         <TextField
-                            id="filled-multiline-flexible"
+                            id="date-time"
                             multiline
                             rowsMax={4}
-                            value={value}
+                            value={inputs[0]["value"]}
                             onChange={handleChange}
                             variant="filled"
                         />
@@ -53,34 +58,38 @@ export default function MultilineTextFields(props: any) {
                             variant="filled"
                         />
                     </Grid>
-                    <Grid container item direction="row">
-                        <Grid item xs={12}>
-                            <Typography variant="body1">Location</Typography>
-                        </Grid>
+                </Grid>
+                <Grid container item direction="row">
+                    <Grid item xs={12}>
+                        <Typography variant="body1">Location</Typography>
                         <TextField
-                            id="filled-multiline-flexible"
+                            id="location"
                             multiline
                             rowsMax={4}
-                            value={value}
+                            value={inputs[1]["value"]}
                             onChange={handleChange}
                             variant="filled"
                         />
                     </Grid>
-                    <Grid container item direction="column">
-                        {/*<GoogleMap />*/}
-                    </Grid>
-
-                    <Grid container item justify="flex-end">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
-                            Next
-                        </Button>
+                </Grid>
+                <Grid container item direction="column">
+                    <Grid item>
+                        <GoogleMap />
                     </Grid>
                 </Grid>
-            </form>
+                <Grid container item justify="flex-end">
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        className={classes.button}
+                        component={Link}
+                        to="/"
+                        onClick={handleClick}
+                    >
+                        Submit
+                    </Button>
+                </Grid>
+            </Grid>
         </div>
     );
 }

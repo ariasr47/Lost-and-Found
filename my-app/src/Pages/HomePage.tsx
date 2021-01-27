@@ -64,23 +64,19 @@ const HomePage = (props: RouteComponentProps) => {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Link
+                                <Button
+                                    variant={"contained"}
+                                    className={classes.button1}
+                                    component={Link}
                                     to="../finder/1"
-                                    style={{ textDecoration: "none" }}
                                 >
-                                    <Button
-                                        variant={"contained"}
-                                        className={classes.button1}
-                                    >
-                                        <Typography variant={"body1"}>
-                                            I'm a finder
-                                        </Typography>
-                                    </Button>
-                                </Link>
+                                    <Typography variant={"body1"}>
+                                        I'm a finder
+                                    </Typography>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>
-
                     <Grid item>
                         <Grid container direction="column" spacing={3}>
                             <Grid item>
@@ -92,19 +88,16 @@ const HomePage = (props: RouteComponentProps) => {
                                 </Typography>
                             </Grid>
                             <Grid item>
-                                <Link
+                                <Button
+                                    variant={"contained"}
+                                    className={classes.button2}
+                                    component={Link}
                                     to="../seeker/1"
-                                    style={{ textDecoration: "none" }}
                                 >
-                                    <Button
-                                        variant={"contained"}
-                                        className={classes.button2}
-                                    >
-                                        <Typography variant={"body1"}>
-                                            I'm a seeker
-                                        </Typography>
-                                    </Button>
-                                </Link>
+                                    <Typography variant={"body1"}>
+                                        I'm a seeker
+                                    </Typography>
+                                </Button>
                             </Grid>
                         </Grid>
                     </Grid>

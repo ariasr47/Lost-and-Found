@@ -13,78 +13,90 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: "75ch",
             },
         },
-        button: {},
         div: {
             backgroundColor: "#e5e5e5",
-            padding: theme.spacing(3),
+            padding: theme.spacing(5),
         },
     })
 );
 
 export default function MultilineTextFields(props: any) {
     const classes = useStyles();
-    const [value, setValue] = React.useState("");
+    const [inputs, setInputs] = React.useState([
+        { id: "Title", value: "" },
+        { id: "Category", value: "" },
+        { id: "Description", value: "" },
+        { id: "Photo", value: "" },
+    ]);
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value);
+    const handleChange = ({ target: { id, value } }: any) => {
+        const newInputs = [...inputs];
+        const index = inputs.findIndex((input) => input.id === id);
+        newInputs[index] = { ...inputs[index], value };
+        setInputs(newInputs);
+    };
+
+    const handleClick = () => {
+        inputs.forEach((input) => {
+            localStorage.setItem(input["id"], input["value"]);
+        });
     };
 
     return (
         <div className={classes.div}>
             <form className={classes.root} noValidate autoComplete="off">
-                <Grid container item direction="column">
+                <Grid container item direction="column" spacing={2}>
                     <Grid item>
                         <Typography variant="body1">Title</Typography>
+                        <TextField
+                            id={inputs[0].id}
+                            value={inputs[0].value}
+                            required
+                            onChange={handleChange}
+                            variant="filled"
+                        />
                     </Grid>
-                    <TextField
-                        id="filled-multiline-flexible"
-                        multiline
-                        rowsMax={4}
-                        value={value}
-                        onChange={handleChange}
-                        variant="filled"
-                    />
                     <Grid item>
                         <Typography variant="body1">Category</Typography>
+                        <TextField
+                            id={inputs[1].id}
+                            value={inputs[1].value}
+                            required
+                            onChange={handleChange}
+                            variant="filled"
+                        />
                     </Grid>
-                    <TextField
-                        id="filled-textarea"
-                        multiline
-                        variant="filled"
-                    />
+
                     <Grid item>
                         <Typography variant="body1">Description</Typography>
+                        <TextField
+                            id={inputs[2].id}
+                            value={inputs[2].value}
+                            multiline
+                            rows={6}
+                            rowsMax={6}
+                            onChange={handleChange}
+                            variant="filled"
+                        />
                     </Grid>
-                    <TextField
-                        id="filled-multiline-static"
-                        multiline
-                        rows={6}
-                        variant="filled"
-                    />
                     <Grid item xs={12}>
                         <Typography variant={"body1"}>
                             Attach a photo (optional)
                         </Typography>
-                    </Grid>
-                    <Grid item>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            className={classes.button}
-                        >
+                        <Button variant="text" color="primary">
                             Choose File
                         </Button>
                     </Grid>
                     <Grid container item justify="flex-end">
-                        <Link to="../2" style={{ textDecoration: "none" }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                className={classes.button}
-                            >
-                                Next
-                            </Button>
-                        </Link>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            component={Link}
+                            to="../2"
+                            onClick={handleClick}
+                        >
+                            Next
+                        </Button>
                     </Grid>
                 </Grid>
             </form>

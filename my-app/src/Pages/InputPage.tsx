@@ -7,8 +7,9 @@ const InputPage = (props: RouteComponentProps) => {
     const params = useParams();
     return (
         <FormTemplate
-            title="Input the found item"
-            options=""
+            title={`Input the ${
+                params.type === "finder" ? "found" : "lost"
+            } item`}
             type={params.type}
         >
             {params.index === "1" ? <Form1 /> : <Form2 />}
