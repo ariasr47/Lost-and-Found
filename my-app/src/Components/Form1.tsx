@@ -13,9 +13,13 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: "75ch",
             },
         },
-        div: {
-            backgroundColor: "#e5e5e5",
-            padding: theme.spacing(5),
+        upload: {
+            backgroundColor: "rgba(0, 0, 0, 0.09)",
+            paddingBottom: "3px",
+            paddingTop: "3px",
+        },
+        text: {
+            fontFamily: "Montserrat",
         },
     })
 );
@@ -23,10 +27,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function MultilineTextFields(props: any) {
     const classes = useStyles();
     const [inputs, setInputs] = React.useState([
-        { id: "Title", value: "" },
-        { id: "Category", value: "" },
-        { id: "Description", value: "" },
-        { id: "Photo", value: "" },
+        { id: "title", value: "" },
+        { id: "category", value: "" },
+        { id: "description", value: "" },
+        { id: "photo", value: "" },
     ]);
 
     const handleChange = ({ target: { id, value } }: any) => {
@@ -43,63 +47,75 @@ export default function MultilineTextFields(props: any) {
     };
 
     return (
-        <div className={classes.div}>
-            <form className={classes.root} noValidate autoComplete="off">
-                <Grid container item direction="column" spacing={2}>
-                    <Grid item>
-                        <Typography variant="body1">Title</Typography>
-                        <TextField
-                            id={inputs[0].id}
-                            value={inputs[0].value}
-                            required
-                            onChange={handleChange}
-                            variant="filled"
-                        />
-                    </Grid>
-                    <Grid item>
-                        <Typography variant="body1">Category</Typography>
-                        <TextField
-                            id={inputs[1].id}
-                            value={inputs[1].value}
-                            required
-                            onChange={handleChange}
-                            variant="filled"
-                        />
-                    </Grid>
+        <Grid
+            container
+            item
+            direction="column"
+            spacing={2}
+            className={classes.root}
+        >
+            <Grid item>
+                <Typography variant="body1" className={classes.text}>
+                    Title
+                </Typography>
+                <TextField
+                    id={inputs[0].id}
+                    value={inputs[0].value}
+                    required
+                    onChange={handleChange}
+                    variant="filled"
+                />
+            </Grid>
+            <Grid item>
+                <Typography variant="body1" className={classes.text}>
+                    Category
+                </Typography>
+                <TextField
+                    id={inputs[1].id}
+                    value={inputs[1].value}
+                    required
+                    onChange={handleChange}
+                    variant="filled"
+                />
+            </Grid>
 
-                    <Grid item>
-                        <Typography variant="body1">Description</Typography>
-                        <TextField
-                            id={inputs[2].id}
-                            value={inputs[2].value}
-                            multiline
-                            rows={6}
-                            rowsMax={6}
-                            onChange={handleChange}
-                            variant="filled"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Typography variant={"body1"}>
-                            Attach a photo (optional)
-                        </Typography>
-                        <Button variant="text" color="primary">
-                            Choose File
-                        </Button>
-                    </Grid>
-                    <Grid container item justify="flex-end">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            component={Link}
-                            to="../2"
-                            onClick={handleClick}
-                        >
-                            Next
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
-        </div>
+            <Grid item>
+                <Typography variant="body1" className={classes.text}>
+                    Description
+                </Typography>
+                <TextField
+                    id={inputs[2].id}
+                    value={inputs[2].value}
+                    multiline
+                    rows={6}
+                    rowsMax={6}
+                    onChange={handleChange}
+                    variant="filled"
+                />
+            </Grid>
+            <Grid item xs={12}>
+                <Typography variant={"body1"} className={classes.text}>
+                    Attach a photo (optional)
+                </Typography>
+                <Button variant="text" className={classes.upload}>
+                    <Typography variant={"body2"} className={classes.text}>
+                        Choose File
+                    </Typography>
+                </Button>
+            </Grid>
+            <Grid container item justify="flex-end">
+                <Button
+                    variant="contained"
+                    color="primary"
+                    component={Link}
+                    to="../2"
+                    onClick={handleClick}
+                >
+                    <Typography variant={"body2"} className={classes.text}>
+                        Next
+                    </Typography>
+                </Button>
+            </Grid>
+        </Grid>
     );
 }

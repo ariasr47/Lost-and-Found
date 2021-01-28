@@ -4,6 +4,7 @@ import SplashPage from "./Pages/SplashPage";
 import HomePage from "./Pages/HomePage";
 import InputPage from "./Pages/InputPage";
 import ErrorHandler from "./Components/ErrorHandler";
+import "@fontsource/montserrat";
 
 const NotFound = (props: RouteComponentProps) => <p>Sorry, nothing here</p>;
 

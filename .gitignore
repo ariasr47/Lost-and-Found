@@ -6,3 +6,5 @@ my-app/.eslintcache
 my-app/.yarn.lock
 my-app/.yarn-error.log
 my-app/debug.log
+items.db 
+package-lock.json

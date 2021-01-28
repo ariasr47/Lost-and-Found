@@ -2,11 +2,11 @@ const sqlite3 = require("sqlite3").verbose();
 const express = require("express");
 const router = express.Router();
 
-const db = new sqlite3.Database("item_list.db", (err) => {
+const db = new sqlite3.Database("items.db", (err) => {
     if (err) {
         console.error(err.message);
     } else {
-        console.log("Connected to the item_list database.");
+        console.log("Connected to the items database.");
 
         const cmd =
             " SELECT name FROM sqlite_master WHERE type='table' AND name='item' ";
@@ -25,13 +25,12 @@ const db = new sqlite3.Database("item_list.db", (err) => {
 function createDatabase() {
     const cmd = `CREATE TABLE item ( 
         item_id     INTEGER PRIMARY KEY, 
-        lost_found  TEXT NOT NULL, 
+        status      TEXT NOT NULL, 
         title       TEXT NOT NULL, 
         category    TEXT NOT NULL, 
         description TEXT, 
-        photo_url   TEXT, 
-        date        DATE, 
-        time        DATETIME, 
+        photo       TEXT, 
+        datetime    DATETIME, 
         location    TEXT 
     )`;
 
@@ -45,30 +44,19 @@ function createDatabase() {
 }
 
 router.post("/row", (req, res) => {
-    const {
-        lost_found,
-        title,
-        category,
-        description,
-        photo_url,
-        date,
-        time,
-        location,
-    } = req.body;
-
-    const columns = `(lost_found, title, category, description, photo_url, date, time, location)`;
-    const values = `(?, ?, ?, ?, ?, ?, ?, ?)`;
-
+    const data = req.body;
     const params = [
-        lost_found,
-        title,
-        category,
-        description,
-        photo_url,
-        date,
-        time,
-        location,
+        data.status,
+        data.title,
+        data.category,
+        data.description,
+        data.photo,
+        data.datetime,
+        data.location,
     ];
+
+    const columns = `(status, title, category, description, photo, datetime, location)`;
+    const values = `(?, ?, ?, ?, ?, ?, ?, ?)`;
 
     const cmd = `INSERT INTO item ${columns} VALUES ${values}`;
 

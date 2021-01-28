@@ -33,6 +33,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         color: "#fff",
         backgroundColor: "#142a50",
     },
+    buttonText: {
+        fontFamily: "Montserrat",
+    },
 }));
 
 const HomePage = (props: RouteComponentProps) => {
@@ -70,7 +73,10 @@ const HomePage = (props: RouteComponentProps) => {
                                     component={Link}
                                     to="../finder/1"
                                 >
-                                    <Typography variant={"body1"}>
+                                    <Typography
+                                        variant={"body2"}
+                                        className={classes.buttonText}
+                                    >
                                         I'm a finder
                                     </Typography>
                                 </Button>
@@ -94,7 +100,10 @@ const HomePage = (props: RouteComponentProps) => {
                                     component={Link}
                                     to="../seeker/1"
                                 >
-                                    <Typography variant={"body1"}>
+                                    <Typography
+                                        variant={"body2"}
+                                        className={classes.buttonText}
+                                    >
                                         I'm a seeker
                                     </Typography>
                                 </Button>

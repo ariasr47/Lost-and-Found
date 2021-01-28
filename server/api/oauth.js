@@ -8,9 +8,6 @@ const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
 const request = require("request");
 
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
-
 /*
 passport.use(
     new GoogleStrategy(

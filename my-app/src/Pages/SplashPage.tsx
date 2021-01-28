@@ -7,6 +7,7 @@ import Button from "@material-ui/core/Button";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Box from "@material-ui/core/Box";
+import { Typography } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: {
@@ -34,6 +35,9 @@ const useStyles = makeStyles((theme: Theme) => ({
         backgroundColor: "#fff",
         marginTop: 24,
     },
+    buttonText: {
+        fontFamily: "Montserrat",
+    },
 }));
 
 const SplashPage = (props: RouteComponentProps) => {
@@ -58,7 +62,12 @@ const SplashPage = (props: RouteComponentProps) => {
                             component={Link}
                             to="/Home"
                         >
-                            Login with Google
+                            <Typography
+                                variant={"body1"}
+                                className={classes.buttonText}
+                            >
+                                Login with Google
+                            </Typography>
                         </Button>
                     </Grid>
                 </Box>
