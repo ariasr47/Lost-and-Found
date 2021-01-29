@@ -24,11 +24,35 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function MultilineTextFields(props: any) {
+const categories = [
+    {
+        value: "None",
+    },
+    {
+        value: "Cell Phone",
+    },
+    {
+        value: "Laptop",
+    },
+    {
+        value: "Headphones",
+    },
+    {
+        value: "Keys",
+    },
+    {
+        value: "Wallet/Purse",
+    },
+    {
+        value: "Backpack",
+    },
+];
+
+export default function Form1(props: any) {
     const classes = useStyles();
     const [inputs, setInputs] = React.useState([
         { id: "title", value: "" },
-        { id: "category", value: "" },
+        { id: "category", value: "None" },
         { id: "description", value: "" },
         { id: "photo", value: "" },
     ]);
@@ -42,7 +66,7 @@ export default function MultilineTextFields(props: any) {
 
     const handleClick = () => {
         inputs.forEach((input) => {
-            localStorage.setItem(input["id"], input["value"]);
+            sessionStorage.setItem(input["id"], input["value"]);
         });
     };
 
@@ -72,11 +96,21 @@ export default function MultilineTextFields(props: any) {
                 </Typography>
                 <TextField
                     id={inputs[1].id}
+                    select
                     value={inputs[1].value}
                     required
                     onChange={handleChange}
                     variant="filled"
-                />
+                    SelectProps={{
+                        native: true,
+                    }}
+                >
+                    {categories.map((option) => (
+                        <option key={option.value} value={option.value}>
+                            {option.value}
+                        </option>
+                    ))}
+                </TextField>
             </Grid>
 
             <Grid item>

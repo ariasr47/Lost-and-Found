@@ -56,7 +56,7 @@ router.post("/row", (req, res) => {
     ];
 
     const columns = `(status, title, category, description, photo, datetime, location)`;
-    const values = `(?, ?, ?, ?, ?, ?, ?, ?)`;
+    const values = `(?, ?, ?, ?, ?, ?, ?)`;
 
     const cmd = `INSERT INTO item ${columns} VALUES ${values}`;
 

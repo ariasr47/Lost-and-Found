@@ -15,9 +15,7 @@ const useStyles = makeStyles((theme: Theme) =>
                 width: "50ch",
             },
         },
-        button: {
-            margin: theme.spacing(1),
-        },
+
         text: {
             fontFamily: "Montserrat",
         },
@@ -33,17 +31,22 @@ export default function MultilineTextFields(props: any) {
 
     const handleChange = ({ target: { id, value } }: any) => {
         const newInputs = [...inputs];
-        const index = inputs.findIndex((input) => input.id === id);
-        newInputs[index] = { ...inputs[index], value };
+        newInputs[0] = { ...inputs[0], value };
+        setInputs(newInputs);
+    };
+
+    const handleMarker = (value: string) => {
+        const newInputs = [...inputs];
+        newInputs[1] = { ...inputs[1], value };
         setInputs(newInputs);
     };
 
     const handleClick = () => {
         inputs.forEach((input) => {
-            localStorage.setItem(input["id"], input["value"]);
+            sessionStorage.setItem(input["id"], input["value"]);
         });
         axios
-            .post("/api/row", localStorage)
+            .post("/api/row", sessionStorage)
             .then((res) => console.log(res))
             .catch((err) => console.log(err));
     };
@@ -53,10 +56,10 @@ export default function MultilineTextFields(props: any) {
             container
             item
             direction="column"
-            spacing={2}
             className={classes.root}
+            spacing={3}
         >
-            <Grid container item direction="row">
+            <Grid container item direction="column" spacing={3}>
                 <Grid item xs={12}>
                     <Typography variant="body1" className={classes.text}>
                         Date & Time
@@ -64,14 +67,9 @@ export default function MultilineTextFields(props: any) {
                     <TextField
                         id={inputs[0]["id"]}
                         type="datetime-local"
-                        defaultValue="2021-01-01T10:30"
-                        InputLabelProps={{
-                            shrink: true,
-                        }}
+                        onChange={handleChange}
                     />
                 </Grid>
-            </Grid>
-            <Grid container item direction="row">
                 <Grid item xs={12}>
                     <Typography variant="body1" className={classes.text}>
                         Location
@@ -79,23 +77,19 @@ export default function MultilineTextFields(props: any) {
                     <TextField
                         id={inputs[1]["id"]}
                         multiline
-                        rowsMax={4}
+                        disabled
                         value={inputs[1]["value"]}
-                        onChange={handleChange}
                         variant="filled"
                     />
                 </Grid>
-            </Grid>
-            <Grid container item direction="column">
                 <Grid item>
-                    <GoogleMap />
+                    <GoogleMap handleMarker={handleMarker} />
                 </Grid>
             </Grid>
             <Grid container item justify="flex-end">
                 <Button
                     variant="contained"
                     color="primary"
-                    className={classes.button}
                     component={Link}
                     to="/"
                     onClick={handleClick}

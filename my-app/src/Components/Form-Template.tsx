@@ -4,6 +4,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import DavisLogo from "../images/UC_Davis_Logo.png";
 import { Typography } from "@material-ui/core";
 import SearchBar from "./SearchBar";
+import React from "react";
+import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme: Theme) => ({
     root: (props: { type: string }) => ({
@@ -14,7 +16,7 @@ const useStyles = makeStyles((theme: Theme) => ({
         marginTop: "4px",
         marginRight: "12px",
         width: "300px",
-        height: "183px",
+        height: "150px",
         background: `url(${DavisLogo})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "contain",
@@ -36,7 +38,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const FormTemplate = ({ title, options, type, children }: any) => {
     const classes = useStyles({ type });
-    localStorage.setItem("status", type);
+    sessionStorage.setItem("status", type);
     return (
         <Grid container className={classes.root} direction="column">
             <Grid container item xs={12} justify={"flex-end"}>
@@ -44,24 +46,19 @@ const FormTemplate = ({ title, options, type, children }: any) => {
             </Grid>
             <Grid container item xs justify="center">
                 <Grid item>
-                    {title ? (
-                        <Grid item>
-                            <Typography variant="h4" className={classes.header}>
-                                {title}
-                            </Typography>
-                        </Grid>
-                    ) : null}
-                    {options ? <Grid item>{options}</Grid> : null}
-                    <Grid item className={classes.form}>
-                        {children}
-                    </Grid>
-                    <Grid item xs={12} className={classes.search}>
+                    <Box>
+                        <Typography variant="h4" className={classes.header}>
+                            {title}
+                        </Typography>
+                    </Box>
+                    <Box className={classes.form}>{children}</Box>
+                    <Box className={classes.search}>
                         <Typography variant="h4" className={classes.header}>
                             Or search for existing{" "}
-                            {type == "finder" ? "requests" : "items"}
+                            {type === "finder" ? "requests" : "items"}
                         </Typography>
                         <SearchBar />
-                    </Grid>
+                    </Box>
                 </Grid>
             </Grid>
         </Grid>
