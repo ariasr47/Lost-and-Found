@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", database);
 app.use("/api", storage);
-app.use("/api", oauth);
+app.use("/", oauth);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../my-app/build")));

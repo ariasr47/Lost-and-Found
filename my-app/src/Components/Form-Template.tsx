@@ -4,7 +4,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import DavisLogo from "../images/UC_Davis_Logo.png";
 import { Typography } from "@material-ui/core";
 import SearchBar from "./SearchBar";
-import React from "react";
 import Box from "@material-ui/core/Box";
 
 const useStyles = makeStyles((theme: Theme) => ({
