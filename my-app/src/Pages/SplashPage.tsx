@@ -14,12 +14,12 @@ const useStyles = makeStyles((theme: Theme) => ({
         minHeight: "100vh",
         backgroundColor: "#365c85",
     },
-    img1: {
+    ucd_library: {
         background: `url(${ShieldsEntrance})`,
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
     },
-    img2: {
+    ucd_logo: {
         marginTop: "4px",
         marginRight: "8px",
         width: "500px",
@@ -27,9 +27,6 @@ const useStyles = makeStyles((theme: Theme) => ({
         background: `url(${DavisLogo})`,
         backgroundSize: "contain",
         backgroundRepeat: "no-repeat",
-    },
-    logo: {
-        marginLeft: "auto",
     },
     button: {
         backgroundColor: "#fff",
@@ -42,25 +39,25 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const SplashPage = (props: RouteComponentProps) => {
     const matches = useMediaQuery("(min-width:1025px)");
-
     const classes = useStyles();
+
     return (
         <Grid
             container
             direction={matches ? "row" : "column"}
             className={classes.root}
         >
-            <Grid item xs className={classes.img1} />
+            <Grid item xs className={classes.ucd_library} />
             <Grid container item xs>
                 <Box m={"auto"}>
-                    <div className={classes.img2} />
+                    <div className={classes.ucd_logo} />
                     <Grid container justify={"center"}>
                         <Button
                             startIcon={<FcGoogle size="36px" />}
                             variant={"contained"}
                             className={classes.button}
                             component={Link}
-                            to="/auth/google"
+                            to="auth/google"
                         >
                             <Typography
                                 variant={"body1"}
