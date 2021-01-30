@@ -14,8 +14,8 @@ function App() {
             <ErrorHandler>
                 <Router>
                     <SplashPage path="/" />
-                    <HomePage path="/Home" />
-                    <InputPage path="/:type/:index" />
+                    <HomePage path="/user/Home" />
+                    <InputPage path="/user/:type/:index" />
                     <NotFound default />
                 </Router>
             </ErrorHandler>

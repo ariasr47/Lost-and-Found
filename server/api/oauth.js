@@ -8,14 +8,13 @@ const cookieParser = require("cookie-parser");
 const expressSession = require("express-session");
 const request = require("request");
 
-/*
 passport.use(
     new GoogleStrategy(
         {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
             callbackURL:
-                "https://blooming-depths-37498.herokuapp.com/auth/accepted",
+                "https://gentle-island-66437.herokuapp.com/auth/accepted",
             userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
             scope: ["email", "profile"],
         },
@@ -134,6 +133,5 @@ function requireLogin(req, res, next) {
         next();
     }
 }
-*/
 
 module.exports = router;
