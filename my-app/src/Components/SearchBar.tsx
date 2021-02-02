@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function SearchBar({ label }: any) {
+export default function SearchBar({ type, label }: any) {
     const classes = useStyles();
 
     return (
@@ -41,7 +41,7 @@ export default function SearchBar({ label }: any) {
                     className={classes.input}
                     placeholder="Search for item"
                     inputProps={{ "aria-label": "search google maps" }}
-                    onMouseDown={() => navigate("../search")}
+                    onMouseDown={() => navigate(`../${type}/search`)}
                 />
                 <IconButton
                     type="submit"

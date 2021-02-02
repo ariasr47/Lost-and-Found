@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "@reach/router";
+import Category from "./Category";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -12,8 +13,6 @@ const useStyles = makeStyles((theme: Theme) =>
             "& .MuiTextField-root": {
                 width: "75ch",
             },
-            backgroundColor: "#e5e5e5",
-            padding: theme.spacing(5),
         },
         upload: {
             backgroundColor: "rgba(0, 0, 0, 0.09)",
@@ -76,13 +75,7 @@ export default function Form1({ type }: any) {
     };
 
     return (
-        <Grid
-            container
-            item
-            direction="column"
-            spacing={2}
-            className={classes.root}
-        >
+        <Grid container item direction="column" className={classes.root}>
             <Grid item>
                 <Typography variant="body1" className={classes.text}>
                     Title
@@ -96,28 +89,12 @@ export default function Form1({ type }: any) {
                 />
             </Grid>
             <Grid item>
-                <Typography variant="body1" className={classes.text}>
-                    Category
-                </Typography>
-                <TextField
+                <Category
                     id={inputs[1].id}
-                    select
                     value={inputs[1].value}
-                    required
                     onChange={handleChange}
-                    variant="filled"
-                    SelectProps={{
-                        native: true,
-                    }}
-                >
-                    {categories.map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.value}
-                        </option>
-                    ))}
-                </TextField>
+                />
             </Grid>
-
             <Grid item>
                 <Typography variant="body1" className={classes.text}>
                     Description

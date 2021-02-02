@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import GoogleMap from "./GoogleMap";
 import { Link } from "@reach/router";
 import axios from "axios";
+import Category from "./Category";
 
 const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -14,8 +15,6 @@ const useStyles = makeStyles((theme: Theme) =>
             "& .MuiTextField-root": {
                 width: "50ch",
             },
-            backgroundColor: "#e5e5e5",
-            padding: theme.spacing(5),
         },
         text: {
             fontFamily: "Montserrat",
@@ -26,16 +25,18 @@ const useStyles = makeStyles((theme: Theme) =>
     })
 );
 
-export default function MultilineTextFields({ type }: any) {
+export default function Form2({ index, type }: any) {
     const classes = useStyles({ type });
     const [inputs, setInputs] = React.useState([
         { id: "datetime", value: "" },
         { id: "location", value: "" },
+        { id: "category", value: "None" },
     ]);
 
     const handleChange = ({ target: { id, value } }: any) => {
         const newInputs = [...inputs];
-        newInputs[0] = { ...inputs[0], value };
+        const index = inputs.findIndex((input) => input.id === id);
+        newInputs[index] = { ...inputs[index], value };
         setInputs(newInputs);
     };
 
@@ -72,6 +73,15 @@ export default function MultilineTextFields({ type }: any) {
                         onChange={handleChange}
                     />
                 </Grid>
+                {index === "search" ? (
+                    <Grid item xs={12}>
+                        <Category
+                            id={inputs[1].id}
+                            value={inputs[1].value}
+                            onChange={handleChange}
+                        />
+                    </Grid>
+                ) : null}
                 <Grid item xs={12}>
                     <Typography variant="body1" className={classes.text}>
                         Location
@@ -98,7 +108,7 @@ export default function MultilineTextFields({ type }: any) {
                     className={classes.button}
                 >
                     <Typography variant="body2" className={classes.text}>
-                        Submit
+                        {index === "search" ? "Search" : "Submit"}
                     </Typography>
                 </Button>
             </Grid>
