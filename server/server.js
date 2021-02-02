@@ -7,7 +7,7 @@ const app = express();
 
 const database = require("./api/database.js");
 const storage = require("./api/storage.js");
-const oauth = require("./api/oauth.js");
+//const oauth = require("./api/oauth.js");
 
 // enable CORS
 app.use(function (req, res, next) {
@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use("/api", database);
 app.use("/api", storage);
-app.use("/", oauth);
+//app.use("/", oauth);
 
 if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, "../my-app/build")));

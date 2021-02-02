@@ -20,12 +20,10 @@ function MyComponent({ handleMarker }: any) {
     const [map, setMap] = React.useState(null);
 
     const onLoad = React.useCallback(function callback(map) {
-        console.log("Calling onLoad");
         setMap(map);
     }, []);
 
     const onUnmount = React.useCallback(function callback(map) {
-        console.log("Calling onUnmount");
         setMap(null);
     }, []);
 

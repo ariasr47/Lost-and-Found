@@ -14,16 +14,20 @@ const useStyles = makeStyles((theme: Theme) =>
             "& .MuiTextField-root": {
                 width: "50ch",
             },
+            backgroundColor: "#e5e5e5",
+            padding: theme.spacing(5),
         },
-
         text: {
             fontFamily: "Montserrat",
         },
+        button: (props: { type: string }) => ({
+            backgroundColor: props.type === "finder" ? "#daab27" : "#142a50",
+        }),
     })
 );
 
-export default function MultilineTextFields(props: any) {
-    const classes = useStyles();
+export default function MultilineTextFields({ type }: any) {
+    const classes = useStyles({ type });
     const [inputs, setInputs] = React.useState([
         { id: "datetime", value: "" },
         { id: "location", value: "" },
@@ -41,14 +45,12 @@ export default function MultilineTextFields(props: any) {
         setInputs(newInputs);
     };
 
-    const handleClick = () => {
+    const handleClick = async () => {
         inputs.forEach((input) => {
             sessionStorage.setItem(input["id"], input["value"]);
         });
-        axios
-            .post("/api/row", sessionStorage)
-            .then((res) => console.log(res))
-            .catch((err) => console.log(err));
+        const res = await axios.post("/api/row", sessionStorage);
+        console.log(`${res.status} ${res.statusText}`);
     };
 
     return (
@@ -91,8 +93,9 @@ export default function MultilineTextFields(props: any) {
                     variant="contained"
                     color="primary"
                     component={Link}
-                    to="/"
+                    to="/user/Listings"
                     onClick={handleClick}
+                    className={classes.button}
                 >
                     <Typography variant="body2" className={classes.text}>
                         Submit

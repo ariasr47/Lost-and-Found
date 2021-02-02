@@ -12,6 +12,8 @@ const useStyles = makeStyles((theme: Theme) =>
             "& .MuiTextField-root": {
                 width: "75ch",
             },
+            backgroundColor: "#e5e5e5",
+            padding: theme.spacing(5),
         },
         upload: {
             backgroundColor: "rgba(0, 0, 0, 0.09)",
@@ -21,6 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
         text: {
             fontFamily: "Montserrat",
         },
+        button: (props: { type: string }) => ({
+            backgroundColor: props.type === "finder" ? "#daab27" : "#142a50",
+        }),
     })
 );
 
@@ -48,8 +53,8 @@ const categories = [
     },
 ];
 
-export default function Form1(props: any) {
-    const classes = useStyles();
+export default function Form1({ type }: any) {
+    const classes = useStyles({ type });
     const [inputs, setInputs] = React.useState([
         { id: "title", value: "" },
         { id: "category", value: "None" },
@@ -144,6 +149,7 @@ export default function Form1(props: any) {
                     component={Link}
                     to="../2"
                     onClick={handleClick}
+                    className={classes.button}
                 >
                     <Typography variant={"body2"} className={classes.text}>
                         Next

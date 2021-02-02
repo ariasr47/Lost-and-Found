@@ -57,7 +57,7 @@ const SplashPage = (props: RouteComponentProps) => {
                             variant={"contained"}
                             className={classes.button}
                             component={Link}
-                            to="auth/google"
+                            to="user/Home"
                         >
                             <Typography
                                 variant={"body1"}

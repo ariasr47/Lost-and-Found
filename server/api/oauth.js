@@ -13,8 +13,7 @@ passport.use(
         {
             clientID: process.env.CLIENT_ID,
             clientSecret: process.env.CLIENT_SECRET,
-            callbackURL:
-                "https://gentle-island-66437.herokuapp.com/auth/accepted",
+            callbackURL: "",
             userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo",
             scope: ["email", "profile"],
         },

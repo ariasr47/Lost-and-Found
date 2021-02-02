@@ -3,33 +3,20 @@ import Button from "@material-ui/core/Button";
 import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import { Link, RouteComponentProps, useParams } from "@reach/router";
-import DavisLogo from "../images/UC_Davis_Logo.png";
 import { Typography } from "@material-ui/core";
+import Page from "../Components/Page";
 
 const useStyles = makeStyles((theme: Theme) => ({
-    root: {
-        minHeight: "100vh",
-        backgroundColor: "#b3c1d1",
-    },
-    img2: {
-        marginTop: "4px",
-        marginRight: "12px",
-        width: "300px",
-        height: "183px",
-        background: `url(${DavisLogo})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "contain",
-    },
     text: {
         color: "#142a50",
         fontFamily: "Montserrat",
         fontWeight: "bold",
     },
-    button1: {
+    finder: {
         color: "#fff",
         backgroundColor: "#daab27",
     },
-    button2: {
+    seeker: {
         color: "#fff",
         backgroundColor: "#142a50",
     },
@@ -43,10 +30,7 @@ const HomePage = (props: RouteComponentProps) => {
     const params = useParams();
     console.log(params);
     return (
-        <Grid container direction={"column"} className={classes.root}>
-            <Grid container item xs={12} justify={"flex-end"}>
-                <Grid item className={classes.img2} />
-            </Grid>
+        <Page bgColor={"#b3c1d1"}>
             <Grid container item xs alignItems={"center"}>
                 <Grid
                     item
@@ -69,7 +53,7 @@ const HomePage = (props: RouteComponentProps) => {
                             <Grid item>
                                 <Button
                                     variant={"contained"}
-                                    className={classes.button1}
+                                    className={classes.finder}
                                     component={Link}
                                     to="../finder/1"
                                 >
@@ -96,7 +80,7 @@ const HomePage = (props: RouteComponentProps) => {
                             <Grid item>
                                 <Button
                                     variant={"contained"}
-                                    className={classes.button2}
+                                    className={classes.seeker}
                                     component={Link}
                                     to="../seeker/1"
                                 >
@@ -112,7 +96,7 @@ const HomePage = (props: RouteComponentProps) => {
                     </Grid>
                 </Grid>
             </Grid>
-        </Grid>
+        </Page>
     );
 };
 
