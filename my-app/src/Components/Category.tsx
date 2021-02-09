@@ -1,4 +1,3 @@
-import Grid from "@material-ui/core/Grid";
 import { Theme } from "@material-ui/core/styles";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -37,7 +36,7 @@ const Category = ({ id, value, onChange }: any) => {
         },
     ];
     return (
-        <Grid item>
+        <>
             <Typography variant="body1" className={classes.text}>
                 Category
             </Typography>
@@ -58,7 +57,7 @@ const Category = ({ id, value, onChange }: any) => {
                     </option>
                 ))}
             </TextField>
-        </Grid>
+        </>
     );
 };
 
