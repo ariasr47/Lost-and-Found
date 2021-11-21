@@ -1,0 +1,23 @@
+{
+  "name": "lost-and-found",
+  "private": true,
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "clean": "npm run -ws clean",
+    "build": "npm run -ws build",
+    "dev:client": "npm run -w @lost-and-found/client start",
+    "dev:server": "npm run -w @lost-and-found/server dev",
+    "dev": "run-p dev:client dev:server",
+    "start": "npm run -w @lost-and-found/server start"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "cross-env": "7.0.3",
+    "npm-run-all": "^4.1.5"
+  }
+}
