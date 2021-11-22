@@ -12,7 +12,7 @@ import { sequelize } from "./db";
 // import morgan from "morgan";
 // import expressRequestId from "express-request-id";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 
 const app = express();
 
@@ -60,12 +60,28 @@ app.use("/users", userRouter);
 app.use("/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(
-    "/static",
-    express.static(path.join(__dirname, "./static"), {
-      setHeaders: (res, path, headers) => {
-        // cache for 1 year
-        res.setHeader("Cache-Control", "max-age=31536000");
+  app.use("/static/js",
+    express.static(path.join(__dirname, "./static/js"), {
+      setHeaders: (res, path, stat) => {
+        res.setHeader("Cache-Control", "public, max-age=31536000");
+        res.setHeader("Content-Encoding", "gzip");
+      },
+    })
+  );
+
+  app.use("/static/css",
+    express.static(path.join(__dirname, "./static/css"), {
+      setHeaders: (res, path, stat) => {
+        res.setHeader("Cache-Control", "public, max-age=31536000");
+        res.setHeader("Content-Encoding", "gzip");
+      },
+    })
+  );
+
+  app.use("/static/media",
+    express.static(path.join(__dirname, "./static/media"), {
+      setHeaders: (res, path, stat) => {
+        res.setHeader("Cache-Control", "public, max-age=31536000");
       },
     })
   );

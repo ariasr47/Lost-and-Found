@@ -35,6 +35,7 @@
     "clean": "rm -rf build",
     "start": "react-scripts start",
     "build": "cross-env BUILD_PATH=../build react-scripts build",
+    "postbuild": "find ../build/static -type f \\( -name \\*.js -o -name \\*.css \\) -exec gzip {} \\; -exec mv {}.gz {} \\;",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -56,5 +57,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "http://localhost:5000"
+  "proxy": "http://localhost:4000"
 }
