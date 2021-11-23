@@ -1,15 +1,15 @@
+import { Grid, Paper, Typography } from "@material-ui/core";
+import axios, { AxiosResponse } from "axios";
+import { Form, Formik, FormikHelpers } from "formik";
 import { ChangeEvent, FunctionComponent, useCallback, useState } from "react";
 import { RouteChildrenProps } from "react-router-dom";
-import { Grid, Paper, Typography } from "@material-ui/core";
-import { Form1, Form2, Form3 } from "../../components/Form";
-
-import SearchBar from "../../components/SearchBar/SearchBar";
-import useStyles from "./useStyles";
-import AuthenticatedLayout from "../../components/AuthenticatedLayout";
-import { Fields, Params } from "../../types";
-import { Formik, Form, FormikHelpers } from "formik";
-import axios, { AxiosResponse } from "axios";
 import * as yup from "yup";
+
+import AuthenticatedLayout from "../../components/AuthenticatedLayout";
+import { Form1, Form2, Form3 } from "../../components/Form";
+import SearchBar from "../../components/SearchBar/SearchBar";
+import { Fields, Params } from "../../types";
+import useStyles from "./useStyles";
 
 const initialValues: Fields = {
   status: "",
@@ -75,8 +75,6 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
     datetime: yup.date().required("Datetime is required"),
   });
 
-  console.log(history);
-
   const onSubmit = useCallback(
     (values: Fields, formikHelpers: FormikHelpers<Fields>) => {
       console.log("onSubmit inside useFormik()");
@@ -117,11 +115,19 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
                 onSubmit={onSubmit}
                 validationSchema={validationSchema}
               >
-                {({ getFieldProps, setFieldValue, touched, errors }) => (
+                {({
+                  getFieldProps,
+                  setFieldValue,
+                  validateForm,
+                  values,
+                  touched,
+                  errors,
+                }) => (
                   <Form>
                     <Fields
                       role={role}
                       query={query}
+                      values={values}
                       getFieldProps={getFieldProps}
                       setFieldValue={setFieldValue}
                       touched={touched}

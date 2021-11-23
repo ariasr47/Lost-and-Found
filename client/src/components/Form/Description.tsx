@@ -8,8 +8,8 @@ export const Description: VoidFunctionComponent<FieldProps> = memo((props) => {
     <>
       <Typography variant="body1">Description</Typography>
       <TextField
-        title="description"
         id="description"
+        title="description"
         variant="filled"
         multiline
         minRows={6}

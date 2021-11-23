@@ -20,7 +20,6 @@ export const Category: VoidFunctionComponent<FieldProps> = memo((props) => {
       <TextField
         id="category"
         select
-        required
         variant="filled"
         SelectProps={{
           native: true,

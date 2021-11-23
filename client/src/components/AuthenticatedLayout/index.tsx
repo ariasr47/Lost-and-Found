@@ -1,9 +1,8 @@
-import { FC } from "react";
-import { Link } from "react-router-dom";
-
 import Grid from "@material-ui/core/Grid";
 import { styled } from "@material-ui/core/styles";
-
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import UC_DAVIS_LOGO from "../../images/UC_Davis_Logo.png";
 import useStyles from "./useStyles";
 
 const Logo = styled(Link)((props) => ({
@@ -11,7 +10,7 @@ const Logo = styled(Link)((props) => ({
   marginRight: props.theme.spacing(1.5),
   width: "300px",
   height: "150px",
-  backgroundImage: `url(/UC_Davis_Logo.png)`,
+  backgroundImage: `url(${UC_DAVIS_LOGO})`,
   backgroundRepeat: "no-repeat",
   backgroundSize: "contain",
 }));

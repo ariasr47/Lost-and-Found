@@ -10,6 +10,7 @@ import { Fields } from "../../types";
 interface FormProps {
   role: "finder" | "seeker";
   query?: string;
+  values: Fields;
   getFieldProps?: (name: string) => FieldInputProps<any>;
   errors: FormikErrors<Fields>;
   touched: FormikTouched<Fields>;
@@ -21,13 +22,15 @@ const Form1: FunctionComponent<FormProps> = ({
   role,
   touched,
   errors,
+  values,
   getFieldProps,
   setFieldValue,
   ...props
 }) => {
   const history = useHistory();
 
-  const handleClick = useCallback(() => {
+  const handleClickNext = useCallback(() => {
+    // TODO: Validate form and if errors prevent next
     history.push(`/users/${role}/form/2`);
   }, [history, role]);
 
@@ -37,6 +40,8 @@ const Form1: FunctionComponent<FormProps> = ({
     },
     [setFieldValue]
   );
+
+  console.log(Object.keys(errors));
 
   return (
     <Grid container item direction="column" spacing={2}>
@@ -67,8 +72,14 @@ const Form1: FunctionComponent<FormProps> = ({
       <Grid key="button" container item justifyContent="flex-end">
         <Button
           variant="contained"
+          disabled={
+            Boolean(errors.title) ||
+            Boolean(errors.description) ||
+            values.title === "" ||
+            values.description === ""
+          }
           color={role === "finder" ? "secondary" : "primary"}
-          onClick={handleClick}
+          onClick={handleClickNext}
         >
           <Typography variant="button">Next</Typography>
         </Button>
