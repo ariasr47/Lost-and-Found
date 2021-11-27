@@ -1,24 +1,23 @@
-import axios from "axios";
-import { useState, useEffect, FC, ChangeEvent, useCallback } from "react";
-import { RouteChildrenProps } from "react-router-dom";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Box,
   Button,
   Grid,
-  Typography,
   Tab,
-  Box,
+  Typography,
 } from "@material-ui/core";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { TabContext, TabList, TabPanel } from "@material-ui/lab";
+import axios from "axios";
 import qs from "query-string";
-
-import GoogleMap from "../../components/GoogleMap";
-import useStyles from "./useStyles";
+import { ChangeEvent, FC, useCallback, useEffect, useState } from "react";
+import { RouteChildrenProps } from "react-router-dom";
 import AuthenticatedLayout from "../../components/AuthenticatedLayout";
-import { TabPanel, TabList, TabContext } from "@material-ui/lab";
+import GoogleMap from "../../components/GoogleMap";
 import { Params } from "../../types";
+import useStyles from "./useStyles";
 
 const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
   const { history, location, match } = props;
@@ -33,7 +32,7 @@ const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
 
   useEffect(() => {
     axios
-      .get("/users/items" + (search ?? ""))
+      .get(`/users/items`) // TODO: Handle search query
       .then((res) => {
         if (res.status === 200) {
           setData(res.data);
@@ -125,7 +124,7 @@ const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
                                 <Box className={classes.img}>
                                   <img
                                     alt=""
-                                    src={"/static/uploads/" + value.photo}
+                                    src={"/uploads/" + value.photo}
                                     style={{
                                       position: "absolute",
                                       width: "100%",

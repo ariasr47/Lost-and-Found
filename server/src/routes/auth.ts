@@ -1,8 +1,7 @@
 import express from "express";
-
-import passport from "../config/passport";
-import { requireLogin } from "../middleware/auth";
-import { logout, loadUser } from "../controllers/auth";
+import config from "../config/index";
+import { logout } from "../controllers/auth";
+import passport from "../passport";
 
 const router = express.Router();
 
@@ -16,13 +15,11 @@ router.get(
 router.get(
   "/accepted",
   passport.authenticate("google", {
-    successRedirect: `${process.env["DEV_BASE_URL"]}/users/Home`,
-    failureRedirect: `${process.env["DEV_BASE_URL"]}/`,
+    successRedirect: config.PASSPORT.SUCCESS_REDIRECT,
+    failureRedirect: config.PASSPORT.FAILURE_REDIRECT,
   })
 );
 
 router.get("/logout", logout);
-
-router.get("/user", requireLogin, loadUser);
 
 export default router;

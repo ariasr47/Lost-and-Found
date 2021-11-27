@@ -1,6 +1,6 @@
-import { memo, VoidFunctionComponent } from "react";
-import { makeStyles } from "@material-ui/core/styles";
 import { Button, Grid, Typography } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+import { memo, VoidFunctionComponent } from "react";
 import { FieldProps } from "../../types";
 
 const useStyles = makeStyles({
@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const Photo: VoidFunctionComponent<FieldProps> = memo((props) => {
+export const Photo: VoidFunctionComponent<FieldProps> = memo(({ onChange }) => {
   const classes = useStyles();
 
   return (
@@ -26,7 +26,7 @@ export const Photo: VoidFunctionComponent<FieldProps> = memo((props) => {
           hidden
           type="file"
           accept="image/*"
-          onChange={props.onChange}
+          onChange={onChange}
         />
         <label htmlFor="photo">
           <Button

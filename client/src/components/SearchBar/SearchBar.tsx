@@ -1,9 +1,13 @@
+import {
+  Box,
+  IconButton,
+  InputBase,
+  Paper,
+  Typography,
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
 import { ChangeEvent, FunctionComponent, memo } from "react";
 import { useHistory } from "react-router-dom";
-
-import { Paper, InputBase, IconButton, Typography } from "@material-ui/core";
-import SearchIcon from "@material-ui/icons/Search";
-
 import useStyles from "./useStyles";
 
 type SearchBarProps = {
@@ -18,7 +22,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = (props) => {
   const history = useHistory();
 
   return (
-    <>
+    <Box>
       <Typography variant="h4" color="primary">
         {`Or search for existing ${role === "finder" ? "requests" : "items"}`}
       </Typography>
@@ -35,7 +39,7 @@ const SearchBar: FunctionComponent<SearchBarProps> = (props) => {
           <SearchIcon />
         </IconButton>
       </Paper>
-    </>
+    </Box>
   );
 };
 

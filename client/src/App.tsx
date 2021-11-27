@@ -1,8 +1,7 @@
-import { lazy, Suspense, VFC } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { ThemeProvider } from "@material-ui/core/styles";
-
+import { lazy, Suspense, VFC } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import theme from "./theme";
 
 const UnauthorizedPage = lazy(() => import("./pages/UnauthorizedPage"));

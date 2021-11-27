@@ -1,12 +1,8 @@
 import { Sequelize } from "sequelize";
-import User from "./models/User";
-import Item from "./models/Item";
+import config from "./config"
 
-export const sequelize = new Sequelize({
+export default new Sequelize({
   dialect: "sqlite",
-  storage: "database.sqlite",
+  storage: config.DATABASE.PATH,
   logging: false,
 });
-
-export const UserModel = User(sequelize, Sequelize);
-export const ItemModel = Item(sequelize, Sequelize);

@@ -1,19 +1,16 @@
-import express from 'express'
+import express from "express";
+import { addItem, getItems, isValidUpload } from "../controllers/users";
+import { requireLogin } from "../middleware/auth";
+import upload from "../multer";
 
-import { addItem, getItems, isValidUpload } from '../controllers/users'
-import { requireLogin } from '../middleware/auth'
+const router = express.Router();
 
-import upload from '../config/multer'
+router.use(requireLogin);
 
-const router = express.Router()
+router.post("/upload", upload.single("newImage"), isValidUpload);
 
-router.use(requireLogin)
+router.post("/item", addItem);
 
-router.post('/upload', upload.single('newImage'), isValidUpload)
+router.get("/items", getItems);
 
-router.post('/item', addItem)
-
-router.get('/items', getItems)
-
-export default router
-
+export default router;

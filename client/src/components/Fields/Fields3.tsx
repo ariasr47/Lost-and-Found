@@ -1,10 +1,10 @@
-import { FunctionComponent, memo, useCallback } from "react";
 import { Button, Grid, Typography } from "@material-ui/core";
 import { FieldInputProps, FormikErrors, FormikTouched } from "formik";
-
-import GoogleMap from "../GoogleMap";
-import { Datetime, Location } from "./";
+import { FunctionComponent, memo, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Fields } from "../../types";
+import GoogleMap from "../GoogleMap";
+import { Category, Datetime, Location } from ".";
 
 interface FormProps {
   role: "finder" | "seeker";
@@ -15,40 +15,44 @@ interface FormProps {
   setFieldValue?: (name: string, value: any) => void;
 }
 
-const Form2: FunctionComponent<FormProps> = ({
+const Form3: FunctionComponent<FormProps> = ({
   children,
   role,
-  setFieldValue,
+  query,
   getFieldProps,
   ...props
 }) => {
-  const handleMarkerDrag = useCallback(
-    (latlng) => setFieldValue("location", latlng),
-    [setFieldValue]
-  );
+  const history = useHistory();
+
+  const handleClick = useCallback(() => {
+    history.push(`/users/${role}/items?search=${query}`);
+  }, [history, query, role]);
 
   return (
     <Grid container item direction="column" spacing={2}>
       <Grid key="date-time" container item direction="column">
         <Datetime {...getFieldProps("datetime")} />
       </Grid>
+      <Grid key="category" container item direction="column">
+        <Category {...getFieldProps("category")} />
+      </Grid>
       <Grid key="location" container item direction="column">
         <Location {...getFieldProps("location")} />
       </Grid>
       <Grid key="google-map" container item direction="column">
-        <GoogleMap onChange={handleMarkerDrag} />
+        <GoogleMap />
       </Grid>
       <Grid key="button" container item justifyContent="flex-end">
         <Button
           variant="contained"
-          type="submit"
           color={role === "finder" ? "secondary" : "primary"}
+          onClick={handleClick}
         >
-          <Typography variant="button">Submit</Typography>
+          <Typography variant="button">Search</Typography>
         </Button>
       </Grid>
     </Grid>
   );
 };
 
-export default memo(Form2);
+export default memo(Form3);

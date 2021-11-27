@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 import UC_DAVIS_LOGO from "../../images/UC_Davis_Logo.png";
 import useStyles from "./useStyles";
 
+type AuthenticatedLayoutProps = {
+  backgroundColor: string;
+};
+
 const Logo = styled(Link)((props) => ({
   marginTop: props.theme.spacing(0.5),
   marginRight: props.theme.spacing(1.5),
@@ -15,7 +19,7 @@ const Logo = styled(Link)((props) => ({
   backgroundSize: "contain",
 }));
 
-const AuthenticatedLayout: FC<{ backgroundColor: string }> = (props) => {
+const AuthenticatedLayout: FC<AuthenticatedLayoutProps> = (props) => {
   const classes = useStyles({ backgroundColor: props["backgroundColor"] });
 
   return (

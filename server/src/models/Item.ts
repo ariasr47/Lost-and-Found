@@ -1,36 +1,43 @@
-const Item = (sequelize, Sequelize) => (
-    sequelize.define("item", {
-        id: {
-            allowNull: false,
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
-        },
-        status: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        title: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        category: {
-            type: Sequelize.STRING,
-            allowNull: false
-        },
-        description: {
-            type: Sequelize.STRING,
-        },
-        photo: {
-            type: Sequelize.STRING,
-        },
-        datetime: {
-            type: Sequelize.DATE
-        },
-        location: {
-            type: Sequelize.STRING
-        }
-    })
-)
+import { DataTypes, Model } from "sequelize";
+import sequelize from "../db";
 
-export default Item
+class Item extends Model {}
+
+export const ItemModel = Item.init(
+  {
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    status: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    category: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+    },
+    photo: {
+      type: DataTypes.STRING,
+    },
+    datetime: {
+      type: DataTypes.DATE,
+    },
+    location: {
+      type: DataTypes.STRING,
+    },
+  },
+  {
+    sequelize,
+    modelName: "Item",
+  }
+);

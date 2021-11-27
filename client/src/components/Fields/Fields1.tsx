@@ -1,11 +1,9 @@
-import { ChangeEvent, FunctionComponent, memo, useCallback } from "react";
-
 import { Button, Grid, Typography } from "@material-ui/core";
-import { useHistory } from "react-router-dom";
 import { FieldInputProps, FormikErrors, FormikTouched } from "formik";
-
-import { Category, Description, Photo, Title } from "./";
+import { ChangeEvent, FunctionComponent, memo, useCallback } from "react";
+import { useHistory } from "react-router-dom";
 import { Fields } from "../../types";
+import { Category, Description, Photo, Title } from ".";
 
 interface FormProps {
   role: "finder" | "seeker";
@@ -30,18 +28,15 @@ const Form1: FunctionComponent<FormProps> = ({
   const history = useHistory();
 
   const handleClickNext = useCallback(() => {
-    // TODO: Validate form and if errors prevent next
     history.push(`/users/${role}/form/2`);
   }, [history, role]);
 
   const handlePhotoChange = useCallback(
-    (e: ChangeEvent<any>) => {
+    (e: ChangeEvent<HTMLInputElement>) => {
       setFieldValue("photo", e.target.files[0]);
     },
     [setFieldValue]
   );
-
-  console.log(Object.keys(errors));
 
   return (
     <Grid container item direction="column" spacing={2}>

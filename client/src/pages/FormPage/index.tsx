@@ -4,9 +4,8 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { ChangeEvent, FunctionComponent, useCallback, useState } from "react";
 import { RouteChildrenProps } from "react-router-dom";
 import * as yup from "yup";
-
 import AuthenticatedLayout from "../../components/AuthenticatedLayout";
-import { Form1, Form2, Form3 } from "../../components/Form";
+import { Form1, Form2, Form3 } from "../../components/Fields";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { Fields, Params } from "../../types";
 import useStyles from "./useStyles";
@@ -34,13 +33,15 @@ const submit = (values) =>
       photo: values["photo"] ? values["photo"].name : "",
     });
 
-    console.log(res);
-
     if (res.status === 200 && values["photo"]) {
       const formData = new FormData();
       formData.append("newImage", values["photo"]);
 
-      const res: AxiosResponse = await axios.post("/users/upload", formData);
+      const res: AxiosResponse = await axios.post("/users/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (res.status === 200) {
         console.log("Successfully Submitted!");
@@ -77,7 +78,6 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
 
   const onSubmit = useCallback(
     (values: Fields, formikHelpers: FormikHelpers<Fields>) => {
-      console.log("onSubmit inside useFormik()");
       submit(values);
       history.push(`/users/${role}/items`);
     },

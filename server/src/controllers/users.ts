@@ -1,11 +1,6 @@
 import { Request, Response } from "express";
-import { ItemModel } from "../db";
-import {
-  ReasonPhrases,
-  StatusCodes,
-  getReasonPhrase,
-  getStatusCode,
-} from "http-status-codes";
+import { StatusCodes } from "http-status-codes";
+import { ItemModel } from "../models";
 
 export const isValidUpload = (req: Request, res: Response) => {
   if (!req.file) {

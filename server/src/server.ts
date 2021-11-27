@@ -1,50 +1,43 @@
-import express, { NextFunction, Request, Response } from "express";
-import session from "express-session";
 import cookieParser from "cookie-parser";
-import path from "path";
 import cors from "cors";
-
-import keys from "./config/keys";
-import passport from "./config/passport";
+import express, { Request, Response } from "express";
+import expressRequestId from "express-request-id";
+import session from "express-session";
+import morgan from "morgan";
+import path from "path";
+import config from "./config";
+import sequelize from "./db";
+import passport from "./passport";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/users";
-import { sequelize } from "./db";
-// import morgan from "morgan";
-// import expressRequestId from "express-request-id";
 
 const PORT = process.env.PORT || 4000;
 
 const app = express();
 
-/*
 const addRequestId = expressRequestId({
   setHeader: false,
 });
 
-app.use(addRequestId);
-
-
-morgan.token("id", (req) => {
-  return req.id.split("-")[0];
+morgan.token("id", (req, res, arg) => {
+  return req["id"].split("-")[0];
 });
 
-
+app.use(addRequestId);
 app.use(
-  morgan("[:date[iso] #:id] Started :method :url for :remote-addr", {
+  morgan("[:date #:id] :method :url", {
     immediate: true,
   })
 );
-*/
-
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(keys.session.cookieKey));
+app.use(cookieParser(config.SESSION.COOKIE_SECRET));
 app.use(
   session({
     name: "ecs162-session-cookie",
-    secret: keys.session.cookieKey,
-    resave: false,
+    secret: config.SESSION.COOKIE_SECRET,
+    resave: true,
     saveUninitialized: false,
     cookie: {
       maxAge: 24 * 60 * 60 * 1000,
@@ -53,14 +46,14 @@ app.use(
 );
 app.use(passport.initialize());
 app.use(passport.session());
-//app.use(express.static(path.join(__dirname, '../uploads')))
 
 // Routes
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
-  app.use("/static/js",
+  app.use(
+    "/static/js",
     express.static(path.join(__dirname, "./static/js"), {
       setHeaders: (res, path, stat) => {
         res.setHeader("Cache-Control", "public, max-age=31536000");
@@ -69,7 +62,8 @@ if (process.env.NODE_ENV === "production") {
     })
   );
 
-  app.use("/static/css",
+  app.use(
+    "/static/css",
     express.static(path.join(__dirname, "./static/css"), {
       setHeaders: (res, path, stat) => {
         res.setHeader("Cache-Control", "public, max-age=31536000");
@@ -78,7 +72,8 @@ if (process.env.NODE_ENV === "production") {
     })
   );
 
-  app.use("/static/media",
+  app.use(
+    "/static/media",
     express.static(path.join(__dirname, "./static/media"), {
       setHeaders: (res, path, stat) => {
         res.setHeader("Cache-Control", "public, max-age=31536000");
@@ -86,20 +81,24 @@ if (process.env.NODE_ENV === "production") {
     })
   );
 
+  app.use(
+    "/uploads",
+    express.static(path.join(__dirname, "./uploads"))
+  );
+
   app.get("*", (req: Request, res: Response) => {
     res.sendFile(path.join(__dirname, "index.html"));
   });
 }
 
-sequelize
-  .sync()
-  .then(() => {
-    console.log("Connection to database is established!");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
-
 app.listen(PORT, () => {
-  console.log(`Server started on port: ${PORT}`);
+  console.info(`Server started on port: ${PORT}`);
+  sequelize
+    .sync()
+    .then(() => {
+      console.info("Connection to database is established!");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
 });
