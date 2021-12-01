@@ -2,10 +2,10 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { FieldInputProps, FormikErrors, FormikTouched } from "formik";
 import { ChangeEvent, FunctionComponent, memo, useCallback } from "react";
 import { useHistory } from "react-router-dom";
-import { Fields } from "../../types";
 import { Category, Description, Photo, Title } from ".";
+import { Fields } from "../../types";
 
-interface FormProps {
+interface FieldsProps {
   role: "finder" | "seeker";
   query?: string;
   values: Fields;
@@ -15,7 +15,7 @@ interface FormProps {
   setFieldValue?: (name: string, value: any) => void;
 }
 
-const Form1: FunctionComponent<FormProps> = ({
+const Fields1: FunctionComponent<FieldsProps> = ({
   children,
   role,
   touched,
@@ -83,4 +83,4 @@ const Form1: FunctionComponent<FormProps> = ({
   );
 };
 
-export default memo(Form1);
+export default memo(Fields1);

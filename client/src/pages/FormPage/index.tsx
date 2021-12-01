@@ -5,25 +5,16 @@ import { ChangeEvent, FunctionComponent, useCallback, useState } from "react";
 import { RouteChildrenProps } from "react-router-dom";
 import * as yup from "yup";
 import AuthenticatedLayout from "../../components/AuthenticatedLayout";
-import { Form1, Form2, Form3 } from "../../components/Fields";
+import { Fields1, Fields2, Fields3 } from "../../components/Fields";
 import SearchBar from "../../components/SearchBar/SearchBar";
+import { initialValues } from "../../constants";
 import { Fields, Params } from "../../types";
 import useStyles from "./useStyles";
 
-const initialValues: Fields = {
-  status: "",
-  title: "",
-  category: "Other",
-  description: "",
-  photo: null,
-  datetime: "",
-  location: "",
-};
-
-const Forms = {
-  "1": Form1,
-  "2": Form2,
-  search: Form3,
+const FormFields = {
+  "1": Fields1,
+  "2": Fields2,
+  search: Fields3,
 };
 
 const submit = (values) =>
@@ -68,7 +59,7 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
     setQuery(() => e.target.value);
   }, []);
 
-  const Fields = Forms[page];
+  const Fields = FormFields[page];
 
   const validationSchema = yup.object().shape({
     title: yup.string().required("Title is required"),
@@ -118,7 +109,6 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
                 {({
                   getFieldProps,
                   setFieldValue,
-                  validateForm,
                   values,
                   touched,
                   errors,

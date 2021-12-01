@@ -1,21 +1,11 @@
-import { VoidFunctionComponent, memo } from "react";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
+import { Box, TextField, Typography } from "@material-ui/core";
+import { memo, VoidFunctionComponent } from "react";
+import { categories } from "../../constants";
 import { FieldProps } from "../../types";
-
-const categories = [
-  "Other",
-  "Cell Phone",
-  "Laptop",
-  "Headphones",
-  "Keys",
-  "Wallet/Purse",
-  "Backpack",
-];
 
 export const Category: VoidFunctionComponent<FieldProps> = memo((props) => {
   return (
-    <>
+    <Box>
       <Typography variant="body1">Category</Typography>
       <TextField
         id="category"
@@ -32,6 +22,6 @@ export const Category: VoidFunctionComponent<FieldProps> = memo((props) => {
           </option>
         ))}
       </TextField>
-    </>
+    </Box>
   );
 });

@@ -6,15 +6,10 @@ import {
   Typography,
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
-import { ChangeEvent, FunctionComponent, memo } from "react";
+import { FunctionComponent, memo } from "react";
 import { useHistory } from "react-router-dom";
+import { SearchBarProps } from "../../types";
 import useStyles from "./useStyles";
-
-type SearchBarProps = {
-  role: "finder" | "seeker";
-  query: string;
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
-};
 
 const SearchBar: FunctionComponent<SearchBarProps> = (props) => {
   const { role, query, onChange: handleChange } = props;

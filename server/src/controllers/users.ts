@@ -19,6 +19,7 @@ export const addItem = (req: Request, res: Response) => {
 };
 
 export const getItems = (req: Request, res: Response) => {
+  console.log(req)
   ItemModel.findAll().then((items) => {
     res.json(items);
   });

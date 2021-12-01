@@ -1,4 +1,4 @@
-import { Button, Grid, Typography } from "@material-ui/core";
+import { Box, Button, Grid, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { memo, VoidFunctionComponent } from "react";
 import { FieldProps } from "../../types";
@@ -9,11 +9,11 @@ const useStyles = makeStyles({
   },
 });
 
-export const Photo: VoidFunctionComponent<FieldProps> = memo(({ onChange }) => {
+export const Photo: VoidFunctionComponent<FieldProps> = memo((props) => {
   const classes = useStyles();
 
   return (
-    <>
+    <Box>
       <Grid item>
         <Typography variant={"body1"} component="span">
           Attach a photo (optional)
@@ -26,7 +26,7 @@ export const Photo: VoidFunctionComponent<FieldProps> = memo(({ onChange }) => {
           hidden
           type="file"
           accept="image/*"
-          onChange={onChange}
+          onChange={props.onChange}
         />
         <label htmlFor="photo">
           <Button
@@ -38,6 +38,6 @@ export const Photo: VoidFunctionComponent<FieldProps> = memo(({ onChange }) => {
           </Button>
         </label>
       </Grid>
-    </>
+    </Box>
   );
 });

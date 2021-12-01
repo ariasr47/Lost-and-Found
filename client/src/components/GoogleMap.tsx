@@ -1,12 +1,12 @@
-import {
-  useState,
-  useCallback,
-  memo,
-  VoidFunctionComponent,
-  CSSProperties,
-} from "react";
-import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
+import {
+  CSSProperties,
+  memo,
+  useCallback,
+  useState,
+  VoidFunctionComponent,
+} from "react";
 import config from "../config";
 
 type GoogleMapProps = {

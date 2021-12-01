@@ -2,11 +2,11 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { FieldInputProps, FormikErrors, FormikTouched } from "formik";
 import { FunctionComponent, memo, useCallback } from "react";
 import { useHistory } from "react-router-dom";
+import { Category, Datetime, Location } from ".";
 import { Fields } from "../../types";
 import GoogleMap from "../GoogleMap";
-import { Category, Datetime, Location } from ".";
 
-interface FormProps {
+interface FieldsProps {
   role: "finder" | "seeker";
   query?: string;
   getFieldProps?: (name: string) => FieldInputProps<any>;
@@ -15,7 +15,7 @@ interface FormProps {
   setFieldValue?: (name: string, value: any) => void;
 }
 
-const Form3: FunctionComponent<FormProps> = ({
+const Fields3: FunctionComponent<FieldsProps> = ({
   children,
   role,
   query,
@@ -55,4 +55,4 @@ const Form3: FunctionComponent<FormProps> = ({
   );
 };
 
-export default memo(Form3);
+export default memo(Fields3);

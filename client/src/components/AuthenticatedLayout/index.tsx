@@ -3,11 +3,8 @@ import { styled } from "@material-ui/core/styles";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import UC_DAVIS_LOGO from "../../images/UC_Davis_Logo.png";
+import { AuthenticatedLayoutProps } from "../../types";
 import useStyles from "./useStyles";
-
-type AuthenticatedLayoutProps = {
-  backgroundColor: string;
-};
 
 const Logo = styled(Link)((props) => ({
   marginTop: props.theme.spacing(0.5),

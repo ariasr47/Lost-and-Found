@@ -1,11 +1,14 @@
 import { Box, Button, Grid } from "@material-ui/core";
-import { FunctionComponent } from "react";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-
+import { FunctionComponent, useCallback } from "react";
 import useStyles from "./useStyles";
 
 const SplashPage: FunctionComponent = () => {
   const classes = useStyles();
+
+  const handleLogin = useCallback(() => {
+    window.location.replace(process.env.REACT_APP_OAUTH_SCREEN);
+  }, []);
 
   return (
     <Grid container direction={"row"} className={classes.container}>
@@ -17,9 +20,7 @@ const SplashPage: FunctionComponent = () => {
             startIcon={<FcGoogle size="36px" />}
             variant={"contained"}
             className={classes.button}
-            onClick={() =>
-              window.location.replace(process.env.REACT_APP_OAUTH_SCREEN)
-            }
+            onClick={handleLogin}
           >
             Login with Google
           </Button>

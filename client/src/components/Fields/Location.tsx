@@ -1,11 +1,10 @@
+import { Box, TextField, Typography } from "@material-ui/core";
 import { memo, VoidFunctionComponent } from "react";
-import TextField from "@material-ui/core/TextField";
-import Typography from "@material-ui/core/Typography";
 import { FieldProps } from "../../types";
 
 export const Location: VoidFunctionComponent<FieldProps> = memo((props) => {
   return (
-    <>
+    <Box>
       <Typography variant="body1">Location</Typography>
       <TextField
         id={"location"}
@@ -15,6 +14,6 @@ export const Location: VoidFunctionComponent<FieldProps> = memo((props) => {
         error={props.error}
         helperText={props.helperText}
       />
-    </>
+    </Box>
   );
 });
