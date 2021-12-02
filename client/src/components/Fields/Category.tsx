@@ -3,7 +3,7 @@ import { memo, VoidFunctionComponent } from "react";
 import { categories } from "../../constants";
 import { FieldProps } from "../../types";
 
-export const Category: VoidFunctionComponent<FieldProps> = memo((props) => {
+const Category: VoidFunctionComponent<FieldProps> = (props) => {
   return (
     <Box>
       <Typography variant="body1">Category</Typography>
@@ -24,4 +24,6 @@ export const Category: VoidFunctionComponent<FieldProps> = memo((props) => {
       </TextField>
     </Box>
   );
-});
+};
+
+export default memo(Category);

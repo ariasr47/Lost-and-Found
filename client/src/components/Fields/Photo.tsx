@@ -9,7 +9,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const Photo: VoidFunctionComponent<FieldProps> = memo((props) => {
+const Photo: VoidFunctionComponent<FieldProps> = (props) => {
   const classes = useStyles();
 
   return (
@@ -40,4 +40,6 @@ export const Photo: VoidFunctionComponent<FieldProps> = memo((props) => {
       </Grid>
     </Box>
   );
-});
+}
+
+export default memo(Photo)

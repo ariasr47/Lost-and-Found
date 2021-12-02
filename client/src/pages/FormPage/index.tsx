@@ -4,7 +4,6 @@ import { Form, Formik, FormikHelpers } from "formik";
 import { ChangeEvent, FunctionComponent, useCallback, useState } from "react";
 import { RouteChildrenProps } from "react-router-dom";
 import * as yup from "yup";
-import AuthenticatedLayout from "../../components/AuthenticatedLayout";
 import { Fields1, Fields2, Fields3 } from "../../components/Fields";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { initialValues } from "../../constants";
@@ -76,71 +75,67 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
   );
 
   return (
-    <AuthenticatedLayout
-      backgroundColor={role === "finder" ? "#feebb1" : "#b3c1d1"}
-    >
-      <Grid item container justifyContent="center">
-        <Grid item>
-          <Grid container direction="column">
-            <Grid key="grid-item-search-top" item>
-              {page !== "search" ? (
-                <Typography variant="h4" color="primary">
-                  {`Input the ${role === "finder" ? "found" : "lost"} item`}
-                </Typography>
-              ) : (
-                <SearchBar
-                  role={role}
-                  query={query}
-                  onChange={handleSearchChange}
-                />
-              )}
-            </Grid>
-            <Grid
-              key="grid-item-form"
-              item
-              className={classes.root}
-              component={Paper}
+    <Grid item container justifyContent="center">
+      <Grid item>
+        <Grid container direction="column">
+          <Grid key="grid-item-search-top" item>
+            {page !== "search" ? (
+              <Typography variant="h4" color="primary">
+                {`Input the ${role === "finder" ? "found" : "lost"} item`}
+              </Typography>
+            ) : (
+              <SearchBar
+                role={role}
+                query={query}
+                onChange={handleSearchChange}
+              />
+            )}
+          </Grid>
+          <Grid
+            key="grid-item-form"
+            item
+            className={classes.root}
+            component={Paper}
+          >
+            <Formik
+              initialValues={initialValues}
+              onSubmit={onSubmit}
+              validationSchema={validationSchema}
             >
-              <Formik
-                initialValues={initialValues}
-                onSubmit={onSubmit}
-                validationSchema={validationSchema}
-              >
-                {({
-                  getFieldProps,
-                  setFieldValue,
-                  values,
-                  touched,
-                  errors,
-                }) => (
-                  <Form>
-                    <Fields
-                      role={role}
-                      query={query}
-                      values={values}
-                      getFieldProps={getFieldProps}
-                      setFieldValue={setFieldValue}
-                      touched={touched}
-                      errors={errors}
-                    />
-                  </Form>
-                )}
-              </Formik>
-            </Grid>
-            <Grid key="grid-item-search-bot" item>
-              {page !== "search" && (
-                <SearchBar
-                  role={role}
-                  query={query}
-                  onChange={handleSearchChange}
-                />
+              {({ getFieldProps, setFieldValue, values, touched, errors }) => (
+                <Form>
+                  <Fields
+                    role={role}
+                    query={query}
+                    values={values}
+                    getFieldProps={getFieldProps}
+                    setFieldValue={setFieldValue}
+                    touched={touched}
+                    errors={errors}
+                  />
+                </Form>
               )}
-            </Grid>
+            </Formik>
+          </Grid>
+          <Grid key="grid-item-search-bot" item>
+            {page !== "search" && (
+              <SearchBar
+                role={role}
+                query={query}
+                onChange={handleSearchChange}
+              />
+            )}
           </Grid>
         </Grid>
       </Grid>
-    </AuthenticatedLayout>
+    </Grid>
   );
 };
 
 export default InputPage;
+
+/* =================================================================
+ <AuthenticatedLayout
+    backgroundColor={role === "finder" ? "#feebb1" : "#b3c1d1"}
+  >
+*/

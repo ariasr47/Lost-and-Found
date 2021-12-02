@@ -3,7 +3,6 @@ import { styled } from "@material-ui/core/styles";
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import UC_DAVIS_LOGO from "../../images/UC_Davis_Logo.png";
-import { AuthenticatedLayoutProps } from "../../types";
 import useStyles from "./useStyles";
 
 const Logo = styled(Link)((props) => ({
@@ -16,8 +15,8 @@ const Logo = styled(Link)((props) => ({
   backgroundSize: "contain",
 }));
 
-const AuthenticatedLayout: FC<AuthenticatedLayoutProps> = (props) => {
-  const classes = useStyles({ backgroundColor: props["backgroundColor"] });
+const AuthenticatedLayout: FC = (props) => {
+  const classes = useStyles();
 
   return (
     <Grid container className={classes.root}>

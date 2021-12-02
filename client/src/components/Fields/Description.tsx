@@ -2,7 +2,7 @@ import { Box, TextField, Typography } from "@material-ui/core";
 import { memo, VoidFunctionComponent } from "react";
 import { FieldProps } from "../../types";
 
-export const Description: VoidFunctionComponent<FieldProps> = memo((props) => {
+const Description: VoidFunctionComponent<FieldProps> = (props) => {
   return (
     <Box>
       <Typography variant="body1">Description</Typography>
@@ -18,4 +18,6 @@ export const Description: VoidFunctionComponent<FieldProps> = memo((props) => {
       />
     </Box>
   );
-});
+};
+
+export default memo(Description);

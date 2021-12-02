@@ -1,9 +1,16 @@
 {
   "name": "lost-and-found",
+  "author": {
+    "name": "Rodrigo Arias"
+  },
   "private": true,
   "engines": {
-    "node": "16.x",
-    "npm": "8.x"
+    "node": "16.x.x",
+    "npm": "8.x.x"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ariasr47/Lost-and-Found.git"
   },
   "scripts": {
     "clean": "npm run -ws clean",
