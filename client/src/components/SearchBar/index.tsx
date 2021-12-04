@@ -1,4 +1,4 @@
-import { Box, IconButton, InputBase, Paper, Typography } from "@material-ui/core";
+import { Box, IconButton, InputBase, Paper } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { FunctionComponent, memo } from "react";
 import { useHistory } from "react-router-dom";
@@ -6,22 +6,19 @@ import { SearchBarProps } from "../../types";
 import useStyles from "./useStyles";
 
 const SearchBar: FunctionComponent<SearchBarProps> = (props) => {
-  const { role, query, onChange: handleChange } = props;
+  const { query, onChange: handleChange } = props;
   const classes = useStyles();
   const history = useHistory();
 
   return (
     <Box>
-      <Typography variant="h4" color="primary">
-        {`Or search for existing ${role === "finder" ? "requests" : "items"}`}
-      </Typography>
       <Paper className={classes.root}>
         <InputBase
           id="search"
           value={query}
           className={classes.input}
           placeholder="Search for item"
-          onMouseDown={() => history.push(`/users/${role}/form/search`)}
+          onMouseDown={() => history.push(`search`)}
           onChange={handleChange}
         />
         <IconButton title="search" type="submit" className={classes.iconButton}>

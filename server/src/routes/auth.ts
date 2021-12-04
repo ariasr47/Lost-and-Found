@@ -1,6 +1,6 @@
 import express from "express";
 import config from "../config/index";
-import { logout } from "../controllers/auth";
+import { getUser, logout } from "../controllers/auth";
 import passport from "../passport";
 
 const router = express.Router();
@@ -21,5 +21,7 @@ router.get(
 );
 
 router.get("/logout", logout);
+
+router.get("/user", getUser);
 
 export default router;

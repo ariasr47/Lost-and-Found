@@ -1,7 +1,32 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, Optional } from "sequelize";
 import sequelize from "../db";
 
-class Item extends Model {}
+interface ItemAttributes {
+  id: number;
+  status: string;
+  title: string;
+  category: string;
+  description: string;
+  photo: string;
+  datetime: string;
+  location: string;
+}
+
+interface ItemCreationAttributes extends Optional<ItemAttributes, "id"> {}
+
+class Item extends Model<ItemAttributes, ItemCreationAttributes> implements ItemAttributes {
+  id!: number;
+  status!: string;
+  title!: string;
+  category!: string;
+  description!: string;
+  photo!: string;
+  datetime!: string;
+  location!: string;
+
+  public readonly createdAt!: Date;
+  public readonly updatedAt!: Date;
+}
 
 export const ItemModel = Item.init(
   {

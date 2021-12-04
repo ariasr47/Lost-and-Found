@@ -5,7 +5,7 @@ import { Fields } from "../../types";
 import { Datetime, Location } from "../Fields";
 import GoogleMap from "../GoogleMap";
 
-type Form2Props = FormikProps<Fields> & { role: string };
+type Form2Props = FormikProps<Fields> & { role: string; query?: string };
 
 const Form2: FunctionComponent<Form2Props> = (props) => {
   const { setFieldValue, values, role } = props;

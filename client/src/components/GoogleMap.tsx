@@ -1,8 +1,8 @@
 import Skeleton from "@material-ui/lab/Skeleton";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
 import { memo, useCallback, useState, VoidFunctionComponent } from "react";
-import { GoogleMapProps } from "../types";
 import config from "../config";
+import { GoogleMapProps } from "../types";
 
 const containerStyle = {
   width: "75ch",

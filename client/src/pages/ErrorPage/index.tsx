@@ -3,9 +3,8 @@ import { FC } from "react";
 import { RouteComponentProps } from "react-router-dom";
 
 const ErrorPage: FC<RouteComponentProps> = (props) => (
-  <Box>
+  <Box sx={{ display: "flex", justifyContent: "center", width: "100%", height: "100%" }}>
     <h1>Error: Not Found</h1>
-    <p>Sorry, nothing here</p>
   </Box>
 );
 

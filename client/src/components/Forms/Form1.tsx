@@ -5,7 +5,7 @@ import { Category, Description, Photo, Title } from "../Fields";
 import { Field, Form, FormikProps } from "formik";
 import { Fields } from "../../types";
 
-type Form1Props = FormikProps<Fields> & { role: string };
+type Form1Props = FormikProps<Fields> & { role: string; query?: string };
 
 const Form1: FunctionComponent<Form1Props> = (props) => {
   const { setFieldValue, errors, values, role } = props;

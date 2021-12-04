@@ -2,14 +2,14 @@ import { Button, Grid, Typography } from "@material-ui/core";
 import { Field, Form, FormikProps } from "formik";
 import { FunctionComponent, memo, useCallback, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import { Category, Datetime, Location } from "../Fields";
 import { Fields } from "../../types";
+import { Category, Datetime, Location } from "../Fields";
 import GoogleMap from "../GoogleMap";
 
-type Form3Props = FormikProps<Fields> & { role: string };
+type Form3Props = FormikProps<Fields> & { role: string; query?: string };
 
-const Fields3: FunctionComponent<Form3Props> = (props) => {
-  const { setFieldValue, values, role } = props;
+const Form3: FunctionComponent<Form3Props> = (props) => {
+  const { setFieldValue, values, role, query } = props;
 
   const history = useHistory();
 
@@ -21,8 +21,8 @@ const Fields3: FunctionComponent<Form3Props> = (props) => {
   );
 
   const handleClick = useCallback(() => {
-    history.push(`/users/${role}/items`);
-  }, [history, role]);
+    history.push(`/users/${role}/items?query=${query}`);
+  }, [history, role, query]);
 
   useEffect(() => {
     sessionStorage.setItem("formValues", JSON.stringify(values));
@@ -56,4 +56,4 @@ const Fields3: FunctionComponent<Form3Props> = (props) => {
   );
 };
 
-export default memo(Fields3);
+export default memo(Form3);

@@ -14,7 +14,11 @@ import useStyles from "./useStyles";
 const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
   const { history, location, match } = props;
   const { role } = match.params;
-  const { search } = qs.parse(location.search);
+  const search = location.search;
+  const { query } = qs.parse(search);
+
+  console.log(search);
+  console.log(location);
 
   const classes = useStyles();
   const [expanded, setExpanded] = useState("");
@@ -30,7 +34,7 @@ const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
 
   useEffect(() => {
     axios
-      .get(`/users/items`) // TODO: Handle search query
+      .get(`/users/items${search}`)
       .then((res) => {
         if (res.status === 200) {
           setData(res.data);
@@ -60,7 +64,7 @@ const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
           {search && (
             <Grid item>
               <Typography variant="h4" gutterBottom color="primary">
-                Showing results for "{search}"
+                Showing results for "{query}"
               </Typography>
             </Grid>
           )}

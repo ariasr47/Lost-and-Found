@@ -17,7 +17,6 @@ export type Fields = {
 };
 
 export type SearchBarProps = {
-  role: "finder" | "seeker";
   query: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };

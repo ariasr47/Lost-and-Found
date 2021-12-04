@@ -5,10 +5,10 @@ import { ChangeEvent, FunctionComponent, useCallback, useEffect, useLayoutEffect
 import { useDispatch, useSelector } from "react-redux";
 import { RouteComponentProps } from "react-router-dom";
 import * as yup from "yup";
-import { Form1, Form2, Form3 } from "../../components/Forms";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import { initialValues } from "../../constants";
 import { setBackgroundColor, setQuery } from "../../actions";
+import { Form1, Form2, Form3 } from "../../components/Forms";
+import SearchBar from "../../components/SearchBar";
+import { initialValues } from "../../constants";
 import { Fields, Params, RootState } from "../../types";
 import useStyles from "./useStyles";
 
@@ -19,10 +19,12 @@ const getInitialValues = () => {
 
 const submit = (values: Fields) =>
   new Promise(async (resolve, reject) => {
-    const res: AxiosResponse = await axios.post("/users/item", {
+    const data = {
       ...values,
-      photo: values["photo"] ? values["photo"].name : "",
-    });
+      photo: values["photo"] && values["photo"].name,
+    };
+
+    const res: AxiosResponse = await axios.post("/users/item", data);
 
     if (res.status === 200 && values["photo"]) {
       const formData = new FormData();
@@ -100,13 +102,12 @@ export const InputPage: FunctionComponent<RouteComponentProps<Params>> = (props)
       <Grid item>
         <Grid container direction="column">
           <Grid key="grid-item-search-top" item>
-            {page !== "search" ? (
-              <Typography variant="h4" color="primary">
-                {`Input the ${role === "finder" ? "found" : "lost"} item`}
-              </Typography>
-            ) : (
-              <SearchBar role={role} query={query} onChange={handleSearchChange} />
-            )}
+            <Typography variant="h4" color="primary">
+              {page === "search"
+                ? `Or search for existing ${role === "finder" ? "requests" : "items"}`
+                : `Input the ${role === "finder" ? "found" : "lost"} item`}
+            </Typography>
+            {page === "search" && <SearchBar query={query} onChange={handleSearchChange} />}
           </Grid>
           <Grid key="grid-item-form" item className={classes.root} component={Paper}>
             <Formik
@@ -123,13 +124,13 @@ export const InputPage: FunctionComponent<RouteComponentProps<Params>> = (props)
                   case "2":
                     return <Form2 role={role} {...props} />;
                   case "search":
-                    return <Form3 role={role} {...props} />;
+                    return <Form3 role={role} query={query} {...props} />;
                 }
               }}
             </Formik>
           </Grid>
           <Grid key="grid-item-search-bot" item>
-            {page !== "search" && <SearchBar role={role} query={query} onChange={handleSearchChange} />}
+            {page !== "search" && <SearchBar query={query} onChange={handleSearchChange} />}
           </Grid>
         </Grid>
       </Grid>
