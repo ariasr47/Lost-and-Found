@@ -1,23 +1,26 @@
 import { Grid, Paper, Typography } from "@material-ui/core";
 import axios, { AxiosResponse } from "axios";
-import { Form, Formik, FormikHelpers } from "formik";
-import { ChangeEvent, FunctionComponent, useCallback, useState } from "react";
-import { RouteChildrenProps } from "react-router-dom";
+import { Formik, FormikHelpers, FormikProps } from "formik";
+import { ChangeEvent, FunctionComponent, useCallback, useEffect, useLayoutEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import * as yup from "yup";
-import { Fields1, Fields2, Fields3 } from "../../components/Fields";
+import { Form1, Form2, Form3 } from "../../components/Forms";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import { initialValues } from "../../constants";
-import { Fields, Params } from "../../types";
+import { setBackgroundColor, setQuery } from "../../actions";
+import { Fields, Params, RootState } from "../../types";
 import useStyles from "./useStyles";
 
-const FormFields = {
-  "1": Fields1,
-  "2": Fields2,
-  search: Fields3,
+const getInitialValues = () => {
+  const formValues = sessionStorage.getItem("formValues");
+  return formValues ? JSON.parse(formValues) : initialValues;
 };
 
-const submit = (values) =>
+const submit = (values: Fields) =>
   new Promise(async (resolve, reject) => {
+    console.log(values["photo"]);
+
     const res: AxiosResponse = await axios.post("/users/item", {
       ...values,
       photo: values["photo"] ? values["photo"].name : "",
@@ -45,34 +48,54 @@ const submit = (values) =>
     }
   });
 
-export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
-  props
-) => {
+export const InputPage: FunctionComponent<RouteComponentProps<Params>> = (props) => {
   const { history, match } = props;
   const { role, page } = match.params;
 
-  const [query, setQuery] = useState("");
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const query = useSelector((state: RootState) => state.query);
+  const formikRef = useRef<FormikProps<Fields>>(null);
 
-  const handleSearchChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setQuery(() => e.target.value);
+  useLayoutEffect(() => {
+    dispatch(setBackgroundColor(role === "finder" ? "#feebb1" : "#b3c1d1"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const Fields = FormFields[page];
+  useEffect(() => {
+    const formikBag = formikRef.current;
+    return () => {
+      if (formikBag) {
+        formikBag.resetForm();
+      }
+    };
+  }, []);
+
+  const handleSearchChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      dispatch(setQuery(e.target.value));
+    },
+    [dispatch]
+  );
+
+  const onSubmit = useCallback(
+    async (values: Fields, formikHelpers: FormikHelpers<Fields>) => {
+      submit(values);
+      history.push(`/users/${role}/items`);
+    },
+    [history, role]
+  );
+
+  const onReset = useCallback((values: Fields, formikHelpers: FormikHelpers<Fields>) => {
+    formikHelpers.setValues(initialValues);
+    sessionStorage.removeItem("formValues");
+  }, []);
 
   const validationSchema = yup.object().shape({
     title: yup.string().required("Title is required"),
     description: yup.string().required("Description is required"),
     datetime: yup.date().required("Datetime is required"),
   });
-
-  const onSubmit = useCallback(
-    (values: Fields, formikHelpers: FormikHelpers<Fields>) => {
-      submit(values);
-      history.push(`/users/${role}/items`);
-    },
-    [history, role]
-  );
 
   return (
     <Grid item container justifyContent="center">
@@ -84,47 +107,31 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
                 {`Input the ${role === "finder" ? "found" : "lost"} item`}
               </Typography>
             ) : (
-              <SearchBar
-                role={role}
-                query={query}
-                onChange={handleSearchChange}
-              />
+              <SearchBar role={role} query={query} onChange={handleSearchChange} />
             )}
           </Grid>
-          <Grid
-            key="grid-item-form"
-            item
-            className={classes.root}
-            component={Paper}
-          >
+          <Grid key="grid-item-form" item className={classes.root} component={Paper}>
             <Formik
-              initialValues={initialValues}
+              initialValues={getInitialValues()}
               onSubmit={onSubmit}
+              onReset={onReset}
               validationSchema={validationSchema}
+              innerRef={formikRef}
             >
-              {({ getFieldProps, setFieldValue, values, touched, errors }) => (
-                <Form>
-                  <Fields
-                    role={role}
-                    query={query}
-                    values={values}
-                    getFieldProps={getFieldProps}
-                    setFieldValue={setFieldValue}
-                    touched={touched}
-                    errors={errors}
-                  />
-                </Form>
-              )}
+              {(props) => {
+                switch (page) {
+                  case "1":
+                    return <Form1 role={role} {...props} />;
+                  case "2":
+                    return <Form2 role={role} {...props} />;
+                  case "search":
+                    return <Form3 role={role} {...props} />;
+                }
+              }}
             </Formik>
           </Grid>
           <Grid key="grid-item-search-bot" item>
-            {page !== "search" && (
-              <SearchBar
-                role={role}
-                query={query}
-                onChange={handleSearchChange}
-              />
-            )}
+            {page !== "search" && <SearchBar role={role} query={query} onChange={handleSearchChange} />}
           </Grid>
         </Grid>
       </Grid>
@@ -133,9 +140,3 @@ export const InputPage: FunctionComponent<RouteChildrenProps<Params>> = (
 };
 
 export default InputPage;
-
-/* =================================================================
- <AuthenticatedLayout
-    backgroundColor={role === "finder" ? "#feebb1" : "#b3c1d1"}
-  >
-*/

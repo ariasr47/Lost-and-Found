@@ -1,22 +1,8 @@
 import Skeleton from "@material-ui/lab/Skeleton";
 import { GoogleMap, Marker, useLoadScript } from "@react-google-maps/api";
-import {
-  CSSProperties,
-  memo,
-  useCallback,
-  useState,
-  VoidFunctionComponent,
-} from "react";
+import { memo, useCallback, useState, VoidFunctionComponent } from "react";
+import { GoogleMapProps } from "../types";
 import config from "../config";
-
-type GoogleMapProps = {
-  center?: {
-    lat: number;
-    lng: number;
-  };
-  style?: CSSProperties;
-  onChange?: (latLng: string) => any;
-};
 
 const containerStyle = {
   width: "75ch",
@@ -30,7 +16,7 @@ const center = {
 };
 
 const GoogleMapWrapper: VoidFunctionComponent<GoogleMapProps> = (props) => {
-  const { onChange: handleChange = () => null } = props;
+  const { onDrag: handleDrag = () => null } = props;
 
   const { isLoaded, loadError } = useLoadScript({
     id: "google-map-script",
@@ -41,15 +27,9 @@ const GoogleMapWrapper: VoidFunctionComponent<GoogleMapProps> = (props) => {
 
   const [, setMap] = useState<google.maps.Map>(null);
 
-  const onLoad = useCallback(
-    (map: google.maps.Map): void | Promise<void> => setMap(map),
-    []
-  );
+  const onLoad = useCallback((map: google.maps.Map): void | Promise<void> => setMap(map), []);
 
-  const onUnmount = useCallback(
-    (map: google.maps.Map): void | Promise<void> => setMap(null),
-    []
-  );
+  const onUnmount = useCallback((map: google.maps.Map): void | Promise<void> => setMap(null), []);
 
   return isLoaded && !loadError ? (
     <GoogleMap
@@ -59,11 +39,7 @@ const GoogleMapWrapper: VoidFunctionComponent<GoogleMapProps> = (props) => {
       onLoad={onLoad}
       onUnmount={onUnmount}
     >
-      <Marker
-        draggable
-        position={center}
-        onDrag={({ latLng }) => handleChange(latLng.toUrlValue())}
-      />
+      <Marker draggable position={center} onDrag={handleDrag} />
     </GoogleMap>
   ) : (
     <Skeleton variant="rect" width="75ch" height="400px" />

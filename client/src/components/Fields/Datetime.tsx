@@ -1,14 +1,11 @@
-import { Box, TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import { FieldProps } from "formik";
 import { memo, VoidFunctionComponent } from "react";
-import { FieldProps } from "../../types";
 
 const Datetime: VoidFunctionComponent<FieldProps> = (props) => {
-  return (
-    <Box>
-      <Typography variant="body1">Date & Time</Typography>
-      <TextField id={"datetime"} type="datetime-local" {...props} />
-    </Box>
-  );
+  const { field, form, ...other } = props;
+
+  return <TextField id={"datetime"} type="datetime-local" {...field} {...other} />;
 };
 
 export default memo(Datetime);

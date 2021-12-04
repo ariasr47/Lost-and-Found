@@ -1,24 +1,17 @@
-import {
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
-  Box,
-  Button,
-  Grid,
-  Tab,
-  Typography,
-} from "@material-ui/core";
+import { Accordion, AccordionDetails, AccordionSummary, Box, Button, Grid, Tab, Typography } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { TabContext, TabList, TabPanel } from "@material-ui/lab";
 import axios from "axios";
 import qs from "query-string";
-import { ChangeEvent, FC, useCallback, useEffect, useState } from "react";
-import { RouteChildrenProps } from "react-router-dom";
+import { ChangeEvent, FC, useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { RouteComponentProps } from "react-router-dom";
 import GoogleMap from "../../components/GoogleMap";
+import { setBackgroundColor } from "../../actions";
 import { Params } from "../../types";
 import useStyles from "./useStyles";
 
-const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
+const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
   const { history, location, match } = props;
   const { role } = match.params;
   const { search } = qs.parse(location.search);
@@ -28,12 +21,19 @@ const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
   const [loaded, setLoaded] = useState(false);
   const [data, setData] = useState([]);
   const [tabValue, setTabValue] = useState("1");
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(setBackgroundColor("#e5e5e5"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     axios
       .get(`/users/items`) // TODO: Handle search query
       .then((res) => {
         if (res.status === 200) {
+          console.log(res.data);
           setData(res.data);
           setLoaded(true);
         }
@@ -81,26 +81,17 @@ const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
                     >
                       <Grid container direction="row">
                         <Grid item xs={3}>
-                          <Typography
-                            className={classes.heading}
-                            component="span"
-                          >
+                          <Typography className={classes.heading} component="span">
                             {value.category}
                           </Typography>
                         </Grid>
                         <Grid item xs={5}>
-                          <Typography
-                            className={classes.secondaryHeading}
-                            component="span"
-                          >
+                          <Typography className={classes.secondaryHeading} component="span">
                             {value.title}
                           </Typography>
                         </Grid>
                         <Grid item xs={4}>
-                          <Typography
-                            className={classes.secondaryHeading}
-                            component="span"
-                          >
+                          <Typography className={classes.secondaryHeading} component="span">
                             {new Date(value.datetime).toLocaleString()}
                           </Typography>
                         </Grid>
@@ -147,10 +138,7 @@ const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
                 </Grid>
               ))}
             <Grid item>
-              <Button
-                variant="contained"
-                onClick={() => history.push(`/users/${role}/form/search`)}
-              >
+              <Button variant="contained" onClick={() => history.push(`/users/${role}/form/search`)}>
                 <Typography variant="body2">Edit Search</Typography>
               </Button>
             </Grid>
@@ -162,7 +150,3 @@ const ItemsPage: FC<RouteChildrenProps<Params>> = (props) => {
 };
 
 export default ItemsPage;
-
-/* 
-  <AuthenticatedLayout backgroundColor="#e5e5e5">
-*/

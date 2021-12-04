@@ -1,20 +1,21 @@
-import { Box, TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import { FieldProps } from "formik";
 import { memo, VoidFunctionComponent } from "react";
-import { FieldProps } from "../../types";
 
 const Title: VoidFunctionComponent<FieldProps> = (props) => {
-  return (
-    <Box>
-      <Typography variant="body1">Title</Typography>
-      <TextField
-        id="title"
-        title="title"
-        variant="filled"
-        placeholder="What did you find?"
-        {...props}
-      />
-    </Box>
-  );
-}
+  const { field, form, ...other } = props;
 
-export default memo(Title)
+  return (
+    <TextField
+      id="title"
+      title="title"
+      variant="filled"
+      error={form.touched.title && Boolean(form.errors.title)}
+      helperText={form.touched.title && form.errors.title}
+      {...field}
+      {...other}
+    />
+  );
+};
+
+export default memo(Title);

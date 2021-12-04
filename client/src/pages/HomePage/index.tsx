@@ -1,20 +1,21 @@
 import { Button, Grid, Typography } from "@material-ui/core";
-import { FC } from "react";
+import { FC, useLayoutEffect } from "react";
+import { useDispatch } from "react-redux";
 import { RouteComponentProps, useHistory } from "react-router-dom";
+import { setBackgroundColor } from "../../actions";
 
-const HomePage: FC<RouteComponentProps> = () => {
+const HomePage: FC<RouteComponentProps> = (props) => {
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  useLayoutEffect(() => {
+    dispatch(setBackgroundColor("#b3c1d1"));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Grid container item xs alignItems="center">
-      <Grid
-        item
-        container
-        xs
-        justifyContent="center"
-        direction="row"
-        spacing={4}
-      >
+      <Grid item container xs justifyContent="center" direction="row" spacing={4}>
         <Grid item>
           <Grid container direction="column" spacing={3}>
             <Grid item>
@@ -23,11 +24,7 @@ const HomePage: FC<RouteComponentProps> = () => {
               </Typography>
             </Grid>
             <Grid item>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={() => history.push("/users/finder/form/1")}
-              >
+              <Button variant="contained" color="secondary" onClick={() => history.push("/users/finder/form/1")}>
                 <Typography variant="body2">I'm a finder</Typography>
               </Button>
             </Grid>
@@ -41,11 +38,7 @@ const HomePage: FC<RouteComponentProps> = () => {
               </Typography>
             </Grid>
             <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => history.push("/users/seeker/form/1")}
-              >
+              <Button variant="contained" color="primary" onClick={() => history.push("/users/seeker/form/1")}>
                 <Typography variant="body2">I'm a seeker</Typography>
               </Button>
             </Grid>
@@ -57,7 +50,3 @@ const HomePage: FC<RouteComponentProps> = () => {
 };
 
 export default HomePage;
-
-/* 
- <AuthenticatedLayout backgroundColor="#b3c1d1">
-*/

@@ -1,8 +1,7 @@
-import CssBaseline from "@material-ui/core/CssBaseline";
-import { ThemeProvider } from "@material-ui/core/styles";
+import { ThemeProvider, CssBaseline } from "@material-ui/core";
 import { VFC } from "react";
 import Routes from "./Routes";
-import theme from "./theme";
+import theme from "../theme";
 
 const App: VFC = () => {
   return (

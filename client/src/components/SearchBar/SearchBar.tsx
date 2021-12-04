@@ -1,10 +1,4 @@
-import {
-  Box,
-  IconButton,
-  InputBase,
-  Paper,
-  Typography,
-} from "@material-ui/core";
+import { Box, IconButton, InputBase, Paper, Typography } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { FunctionComponent, memo } from "react";
 import { useHistory } from "react-router-dom";

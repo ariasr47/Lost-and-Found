@@ -14,12 +14,13 @@ export const isValidUpload = (req: Request, res: Response) => {
 
 export const addItem = (req: Request, res: Response) => {
   const data = req.body;
+  console.log(data);
   ItemModel.create(data);
   res.json(data);
 };
 
 export const getItems = (req: Request, res: Response) => {
-  console.log(req)
+  console.log(req);
   ItemModel.findAll().then((items) => {
     res.json(items);
   });

@@ -1,22 +1,24 @@
-import { Box, TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import { FieldProps } from "formik";
 import { memo, VoidFunctionComponent } from "react";
-import { FieldProps } from "../../types";
 
 const Description: VoidFunctionComponent<FieldProps> = (props) => {
+  const { field, form, ...other } = props;
+
   return (
-    <Box>
-      <Typography variant="body1">Description</Typography>
-      <TextField
-        id="description"
-        title="description"
-        variant="filled"
-        multiline
-        minRows={6}
-        maxRows={6}
-        placeholder="Write a short description."
-        {...props}
-      />
-    </Box>
+    <TextField
+      id="description"
+      title="description"
+      variant="filled"
+      multiline
+      minRows={6}
+      maxRows={6}
+      placeholder="Write a short description."
+      error={form.touched.description && Boolean(form.errors.description)}
+      helperText={form.touched.description && form.errors.description}
+      {...field}
+      {...other}
+    />
   );
 };
 

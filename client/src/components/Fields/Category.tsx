@@ -1,28 +1,31 @@
-import { Box, TextField, Typography } from "@material-ui/core";
+import { TextField } from "@material-ui/core";
+import { FieldProps } from "formik";
 import { memo, VoidFunctionComponent } from "react";
 import { categories } from "../../constants";
-import { FieldProps } from "../../types";
 
 const Category: VoidFunctionComponent<FieldProps> = (props) => {
+  const { field, form, ...other } = props;
+
   return (
-    <Box>
-      <Typography variant="body1">Category</Typography>
-      <TextField
-        id="category"
-        select
-        variant="filled"
-        SelectProps={{
-          native: true,
-        }}
-        {...props}
-      >
-        {categories.map((value, index) => (
-          <option key={index} value={value}>
-            {value}
-          </option>
-        ))}
-      </TextField>
-    </Box>
+    <TextField
+      id="category"
+      title="category"
+      variant="filled"
+      select
+      SelectProps={{
+        native: true,
+      }}
+      error={form.touched.category && Boolean(form.errors.category)}
+      helperText={form.touched.category && form.errors.category}
+      {...field}
+      {...other}
+    >
+      {categories.map((value, index) => (
+        <option key={index} value={value}>
+          {value}
+        </option>
+      ))}
+    </TextField>
   );
 };
 

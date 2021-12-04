@@ -1,9 +1,10 @@
 import { Box, Button, Grid } from "@material-ui/core";
 import { FcGoogle } from "@react-icons/all-files/fc/FcGoogle";
-import { FunctionComponent, useCallback } from "react";
+import { FC, useCallback } from "react";
+import { RouteComponentProps } from "react-router-dom";
 import useStyles from "./useStyles";
 
-const LandingPage: FunctionComponent = () => {
+const LandingPage: FC<RouteComponentProps> = (props) => {
   const classes = useStyles();
 
   const handleLogin = useCallback(() => {
