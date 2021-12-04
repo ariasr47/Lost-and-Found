@@ -33,7 +33,6 @@ const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
       .get(`/users/items`) // TODO: Handle search query
       .then((res) => {
         if (res.status === 200) {
-          console.log(res.data);
           setData(res.data);
           setLoaded(true);
         }

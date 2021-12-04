@@ -19,8 +19,6 @@ const getInitialValues = () => {
 
 const submit = (values: Fields) =>
   new Promise(async (resolve, reject) => {
-    console.log(values["photo"]);
-
     const res: AxiosResponse = await axios.post("/users/item", {
       ...values,
       photo: values["photo"] ? values["photo"].name : "",

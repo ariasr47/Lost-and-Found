@@ -6,10 +6,6 @@ export interface Params {
   page: "1" | "2" | "search";
 }
 
-export type AuthenticatedLayoutProps = {
-  backgroundColor: string;
-};
-
 export type Fields = {
   status?: string;
   title?: string;

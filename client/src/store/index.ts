@@ -15,7 +15,6 @@ const store = configureStore({
 
 store.subscribe(() => {
   const state = store.getState();
-  console.log(store.getState());
   sessionStorage.setItem("savedState", JSON.stringify(state));
 });
 

@@ -2,7 +2,7 @@
   "name": "@lost-and-found/client",
   "version": "0.1.0",
   "private": true,
-  "homepage": "./",
+  "homepage": "/",
   "dependencies": {
     "@fontsource/montserrat": "^4.1.0",
     "@material-ui/core": "^4.11.3",
@@ -36,7 +36,7 @@
   "scripts": {
     "clean": "rm -rf build",
     "start": "react-scripts start",
-    "build": "cross-env BUILD_PATH=../build react-scripts build",
+    "build": "react-scripts build",
     "postbuild": "find ../build/static -type f \\( -name \\*.js -o -name \\*.css \\) -exec gzip {} \\; -exec mv {}.gz {} \\;",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
