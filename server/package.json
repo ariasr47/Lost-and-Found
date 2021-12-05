@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "license": "UNLICENSED",
   "private": true,
+  "homepage": "/",
   "main": "../build/server.js",
   "scripts": {
     "clean": "rm -rf build",
