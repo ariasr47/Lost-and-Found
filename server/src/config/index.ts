@@ -4,6 +4,7 @@ const { parsed } = dotparsed.config({
   path: `.env.${process.env.NODE_ENV}`,
   debug: true,
 });
+
 interface Config {
   GOOGLE: {
     CLIENT_ID: string;
@@ -26,21 +27,21 @@ interface Config {
 
 const config: Config = {
   GOOGLE: {
-    CLIENT_ID: parsed.GOOGLE_CLIENT_ID,
-    CLIENT_SECRET: parsed.GOOGLE_CLIENT_SECRET,
+    CLIENT_ID: process.env.CLIENT_GOOGLE_CLIENT_ID,
+    CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
   },
   SESSION: {
-    SECRET: parsed.SESSION_SECRET,
+    SECRET: process.env.SESSION_SECRET,
   },
   DATABASE: {
-    PATH: parsed.DATABASE_PATH,
+    PATH: process.env.DATABASE_PATH,
   },
   PASSPORT: {
-    SUCCESS_REDIRECT: parsed.SUCCESS_REDIRECT,
-    FAILURE_REDIRECT: parsed.FAILURE_REDIRECT,
+    SUCCESS_REDIRECT: process.env.SUCCESS_REDIRECT,
+    FAILURE_REDIRECT: process.env.FAILURE_REDIRECT,
   },
   MULTER: {
-    DESTINATION: parsed.MULTER_DESTINATION,
+    DESTINATION: process.env.MULTER_DESTINATION,
   },
 };
 
