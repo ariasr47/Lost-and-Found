@@ -1,17 +1,16 @@
-import dotenv from "dotenv";
+import dotparsed from "dotenv";
 
-dotenv.config({
+const { parsed } = dotparsed.config({
   path: `.env.${process.env.NODE_ENV}`,
   debug: true,
 });
-
 interface Config {
   GOOGLE: {
     CLIENT_ID: string;
     CLIENT_SECRET: string;
   };
   SESSION: {
-    COOKIE_SECRET: string;
+    SECRET: string;
   };
   DATABASE: {
     PATH: string;
@@ -27,21 +26,21 @@ interface Config {
 
 const config: Config = {
   GOOGLE: {
-    CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    CLIENT_ID: parsed.GOOGLE_CLIENT_ID,
+    CLIENT_SECRET: parsed.GOOGLE_CLIENT_SECRET,
   },
   SESSION: {
-    COOKIE_SECRET: process.env.SESSION_COOKIE_KEY,
+    SECRET: parsed.SESSION_SECRET,
   },
   DATABASE: {
-    PATH: process.env.DATABASE_PATH,
+    PATH: parsed.DATABASE_PATH,
   },
   PASSPORT: {
-    SUCCESS_REDIRECT: process.env.SUCCESS_REDIRECT,
-    FAILURE_REDIRECT: process.env.FAILURE_REDIRECT,
+    SUCCESS_REDIRECT: parsed.SUCCESS_REDIRECT,
+    FAILURE_REDIRECT: parsed.FAILURE_REDIRECT,
   },
   MULTER: {
-    DESTINATION: process.env.MULTER_DESTINATION,
+    DESTINATION: parsed.MULTER_DESTINATION,
   },
 };
 

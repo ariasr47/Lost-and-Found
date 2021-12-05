@@ -27,7 +27,6 @@ const AuthenticatedApp: VFC<RouteComponentProps> = (props) => {
       .get("/auth/user")
       .then((res) => res.data)
       .then((user) => {
-        console.log(user);
         if (!user) {
           history.replace("/");
         }

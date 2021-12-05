@@ -17,9 +17,6 @@ const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
   const search = location.search;
   const { query } = qs.parse(search);
 
-  console.log(search);
-  console.log(location);
-
   const classes = useStyles();
   const [expanded, setExpanded] = useState("");
   const [loaded, setLoaded] = useState(false);
@@ -113,21 +110,8 @@ const ItemsPage: FC<RouteComponentProps<Params>> = (props) => {
                           </TabPanel>
                           <TabPanel value="2">
                             {value.photo && (
-                              <Box className={classes.img}>
-                                <img
-                                  alt=""
-                                  src={"/uploads/" + value.photo}
-                                  style={{
-                                    position: "absolute",
-                                    width: "100%",
-                                    height: "100%",
-                                    top: "0",
-                                    right: "0",
-                                    left: "0",
-                                    bottom: "0",
-                                    objectFit: "cover",
-                                  }}
-                                />
+                              <Box className={classes.imgContainer}>
+                                <img alt="" src={"/uploads/" + value.photo} className={classes.img} />
                               </Box>
                             )}
                           </TabPanel>

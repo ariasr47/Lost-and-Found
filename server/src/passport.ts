@@ -17,11 +17,12 @@ declare global {
 passport.use(
   new Strategy(
     {
+      callbackURL: "/auth/accepted",
       clientID: config.GOOGLE.CLIENT_ID,
       clientSecret: config.GOOGLE.CLIENT_SECRET,
-      callbackURL: "/auth/accepted",
+      passReqToCallback: true,
     },
-    async (accessToken, refreshToken, profile, done) => {
+    async (req, accessToken, refreshToken, profile, done) => {
       try {
         let user = await UserModel.findOne({ where: { googleId: profile.id } });
         if (!user) {

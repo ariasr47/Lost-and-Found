@@ -2,7 +2,8 @@ import cookieParser from "cookie-parser";
 import cors from "cors";
 import express, { Request, Response } from "express";
 import expressRequestId from "express-request-id";
-import session from "express-session";
+import session, { SessionOptions } from "express-session";
+import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
 import config from "./config";
@@ -10,6 +11,19 @@ import sequelize from "./db";
 import passport from "./passport";
 import authRouter from "./routes/auth";
 import userRouter from "./routes/users";
+
+const SESSION_OPTIONS: SessionOptions = {
+  cookie: {
+    maxAge: 24 * 60 * 60 * 1000,
+    signed: true,
+    // secure: process.env.NODE_ENV === "production" ? true : false,
+  },
+  name: "ucdavis-lostandfound-session-cookie",
+  // resave: false,
+  saveUninitialized: false,
+  secret: config.SESSION.SECRET,
+  unset: "destroy",
+};
 
 const PORT = process.env.PORT || 4000;
 
@@ -32,18 +46,8 @@ app.use(
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser(config.SESSION.COOKIE_SECRET));
-app.use(
-  session({
-    name: "ecs162-session-cookie",
-    secret: config.SESSION.COOKIE_SECRET,
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-      maxAge: 24 * 60 * 60 * 1000,
-    },
-  })
-);
+app.use(cookieParser(config.SESSION.SECRET));
+app.use(session(SESSION_OPTIONS));
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -52,6 +56,8 @@ app.use("/users", userRouter);
 app.use("/auth", authRouter);
 
 if (process.env.NODE_ENV === "production") {
+  app.use(helmet.hidePoweredBy);
+
   app.use(
     "/static/js",
     express.static(path.join(__dirname, "./static/js"), {
@@ -83,19 +89,17 @@ if (process.env.NODE_ENV === "production") {
 
   app.use("/uploads", express.static(path.join(__dirname, "./uploads")));
 
-  app.get("/*", (req: Request, res: Response) => {
-    res.sendFile(path.join(__dirname, "index.html"));
+  app.get("/*", async (req: Request, res: Response) => {
+    res.sendFile(path.join(__dirname, "./index.html"));
   });
 }
 
-app.listen(PORT, () => {
+app.listen(PORT, async () => {
   console.info(`Server started on port: ${PORT}`);
-  sequelize
-    .sync()
-    .then(() => {
-      console.info("Connection to database is established!");
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+  try {
+    await sequelize.sync();
+    console.info("Connection to database is established!");
+  } catch (error) {
+    console.error(error);
+  }
 });

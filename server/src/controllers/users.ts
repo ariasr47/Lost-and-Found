@@ -3,7 +3,7 @@ import { StatusCodes } from "http-status-codes";
 import { Op } from "sequelize";
 import { ItemModel } from "../models";
 
-export const isValidUpload = (req: Request, res: Response) => {
+export const isValidUpload = async (req: Request, res: Response) => {
   if (!req.file) {
     return res.status(StatusCodes.UNPROCESSABLE_ENTITY);
   } else {
@@ -11,13 +11,13 @@ export const isValidUpload = (req: Request, res: Response) => {
   }
 };
 
-export const addItem = (req: Request, res: Response) => {
+export const addItem = async (req: Request, res: Response) => {
   const data = req.body;
   ItemModel.create(data);
   res.json(data);
 };
 
-export const getItems = (req: Request, res: Response) => {
+export const getItems = async (req: Request, res: Response) => {
   const { query } = req.query;
   ItemModel.findAll(
     query && {
