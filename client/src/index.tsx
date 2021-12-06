@@ -3,6 +3,7 @@ import App from "./components/App";
 import { Provider } from "react-redux";
 import store from "./store";
 import React from "react";
+import "./config/axios";
 
 ReactDOM.render(
   <React.StrictMode>

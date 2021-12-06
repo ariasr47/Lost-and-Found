@@ -23,14 +23,24 @@ const AuthenticatedApp: VFC<RouteComponentProps> = (props) => {
   const { history, location, match } = props;
 
   useLayoutEffect(() => {
-    axios
-      .get("/auth/user")
-      .then((res) => res.data)
-      .then((user) => {
-        if (!user) {
-          history.replace("/");
-        }
-      });
+    const cookieList = document.cookie.split(";");
+    const cookies = cookieList.reduce((previousValue, currentValue, currentIndex, array) => {
+      const [key, value] = currentValue.trim().split("=");
+      previousValue[key] = value;
+      return previousValue;
+    }, {});
+    if (Object(cookies).hasOwnProperty("ucdavis-lostandfound-session-cookie")) {
+      axios
+        .get("/auth/user")
+        .then((res) => res.data)
+        .then((user) => {
+          if (!user) {
+            history.replace("/");
+          }
+        });
+    } else {
+      history.replace("/");
+    }
   }, [history, location]);
 
   return (
